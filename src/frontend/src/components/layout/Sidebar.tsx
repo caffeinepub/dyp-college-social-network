@@ -132,15 +132,6 @@ export function Sidebar({
       <div className="px-4 py-3 border-t border-sidebar-border">
         <p className="text-[10px] text-muted-foreground text-center leading-relaxed">
           © {new Date().getFullYear()} DYP COET
-          <br />
-          <a
-            href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-primary transition-colors"
-          >
-            Built with ♥ using caffeine.ai
-          </a>
         </p>
       </div>
     </div>
