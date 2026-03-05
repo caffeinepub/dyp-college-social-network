@@ -3,6 +3,7 @@ import { ActivityPulse } from "@/components/home/ActivityPulse";
 import { EventCalendarWidget } from "@/components/home/EventCalendarWidget";
 import { UpcomingEventsStrip } from "@/components/home/UpcomingEventsStrip";
 import { PostCard } from "@/components/shared/PostCard";
+import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -13,7 +14,15 @@ import {
   useRecentPosts,
   useUpcomingEvents,
 } from "@/hooks/useQueries";
-import { CalendarDays, Megaphone, RefreshCw } from "lucide-react";
+import {
+  Bot,
+  CalendarDays,
+  Code2,
+  FlaskConical,
+  Megaphone,
+  RefreshCw,
+  Users,
+} from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 
@@ -38,40 +47,11 @@ export function HomePage() {
     PostCategory.Event,
   );
 
-  const tabData: Record<
-    TabValue,
-    {
-      posts: typeof recentPosts;
-      isLoading: boolean;
-      icon: React.ElementType;
-      label: string;
-    }
-  > = {
-    announcements: {
-      posts: announcements,
-      isLoading: annLoading,
-      icon: Megaphone,
-      label: t("announcements"),
-    },
-    updates: {
-      posts: updates,
-      isLoading: updLoading,
-      icon: RefreshCw,
-      label: t("updates"),
-    },
-    events: {
-      posts: eventPosts,
-      isLoading: evtLoading,
-      icon: CalendarDays,
-      label: t("events"),
-    },
-  };
-
   return (
     <div className="flex gap-5 min-h-[calc(100vh-56px)] relative">
       {/* Fixed background circles - decorative, behind all content */}
       <div
-        className="fixed top-20 left-10 w-96 h-96 rounded-full pointer-events-none"
+        className="fixed top-20 left-10 w-96 h-96 rounded-full pointer-events-none float-slow"
         style={{
           background:
             "radial-gradient(circle, rgba(244,114,182,0.07), transparent 70%)",
@@ -79,7 +59,7 @@ export function HomePage() {
         }}
       />
       <div
-        className="fixed bottom-32 right-20 w-80 h-80 rounded-full pointer-events-none"
+        className="fixed bottom-32 right-20 w-80 h-80 rounded-full pointer-events-none float-reverse"
         style={{
           background:
             "radial-gradient(circle, rgba(219,39,119,0.06), transparent 70%)",
@@ -87,7 +67,7 @@ export function HomePage() {
         }}
       />
       <div
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none float-drift"
         style={{
           background:
             "radial-gradient(circle, rgba(251,207,232,0.05), transparent 70%)",
@@ -95,14 +75,14 @@ export function HomePage() {
         }}
       />
       <div
-        className="fixed top-60 right-1/4 w-64 h-64 rounded-full pointer-events-none"
+        className="fixed top-60 right-1/4 w-64 h-64 rounded-full pointer-events-none float-medium"
         style={{
           border: "1.5px solid rgba(244,114,182,0.08)",
           zIndex: 0,
         }}
       />
       <div
-        className="fixed bottom-20 left-1/4 w-48 h-48 rounded-full pointer-events-none"
+        className="fixed bottom-20 left-1/4 w-48 h-48 rounded-full pointer-events-none float-fast"
         style={{
           border: "1px solid rgba(219,39,119,0.06)",
           zIndex: 0,
@@ -124,54 +104,54 @@ export function HomePage() {
           >
             {/* Decorative bubble circles - pink, circly theme */}
             <div
-              className="absolute -top-10 -right-10 w-40 h-40 rounded-full opacity-25"
+              className="absolute -top-10 -right-10 w-40 h-40 rounded-full opacity-25 float-medium"
               style={{
                 background:
                   "radial-gradient(circle, rgba(219,39,119,0.7), transparent 70%)",
               }}
             />
             <div
-              className="absolute -bottom-8 left-1/3 w-32 h-32 rounded-full opacity-20"
+              className="absolute -bottom-8 left-1/3 w-32 h-32 rounded-full opacity-20 float-slow"
               style={{
                 background:
                   "radial-gradient(circle, rgba(244,114,182,0.6), transparent 70%)",
               }}
             />
             <div
-              className="absolute top-2 left-1/2 w-20 h-20 rounded-full opacity-15"
+              className="absolute top-2 left-1/2 w-20 h-20 rounded-full opacity-15 float-fast"
               style={{
                 background:
                   "radial-gradient(circle, rgba(251,207,232,0.9), transparent 70%)",
               }}
             />
             <div
-              className="absolute -top-4 left-12 w-16 h-16 rounded-full opacity-20"
+              className="absolute -top-4 left-12 w-16 h-16 rounded-full opacity-20 float-reverse"
               style={{
                 border: "2px solid rgba(244,114,182,0.4)",
               }}
             />
             <div
-              className="absolute bottom-4 right-8 w-12 h-12 rounded-full opacity-30"
+              className="absolute bottom-4 right-8 w-12 h-12 rounded-full opacity-30 float-medium"
               style={{
                 background:
                   "radial-gradient(circle, rgba(244,114,182,0.5), transparent 70%)",
               }}
             />
             <div
-              className="absolute top-1/2 right-1/4 w-8 h-8 rounded-full opacity-25"
+              className="absolute top-1/2 right-1/4 w-8 h-8 rounded-full opacity-25 float-slow"
               style={{
                 background: "rgba(251,207,232,0.8)",
                 filter: "blur(2px)",
               }}
             />
             <div
-              className="absolute -bottom-4 right-1/3 w-24 h-24 rounded-full opacity-10"
+              className="absolute -bottom-4 right-1/3 w-24 h-24 rounded-full opacity-10 float-drift"
               style={{
                 border: "1.5px solid rgba(219,39,119,0.5)",
               }}
             />
             <div
-              className="absolute top-6 right-16 w-6 h-6 rounded-full opacity-40"
+              className="absolute top-6 right-16 w-6 h-6 rounded-full opacity-40 float-fast"
               style={{
                 background: "rgba(244,114,182,0.6)",
               }}
@@ -239,31 +219,206 @@ export function HomePage() {
               </TabsTrigger>
             </TabsList>
 
-            {(["announcements", "updates", "events"] as TabValue[]).map(
-              (tab) => (
-                <TabsContent key={tab} value={tab} className="mt-4">
-                  {tabData[tab].isLoading ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
-                      {["sk1", "sk2", "sk3", "sk4"].map((k) => (
-                        <Skeleton key={k} className="h-44 rounded-2xl" />
-                      ))}
-                    </div>
-                  ) : tabData[tab].posts.length === 0 ? (
+            {/* Announcements tab - always shows TECHNOTSAV card at top */}
+            <TabsContent value="announcements" className="mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                {/* Static TECHNOTSAV card - always visible */}
+                <motion.div
+                  data-ocid="home.announcements.technotsav.card"
+                  className="bubble-card border-0 overflow-hidden rounded-2xl flex flex-col"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                >
+                  {/* Banner image */}
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ height: "180px" }}
+                  >
+                    <img
+                      src="/assets/uploads/image-1.png"
+                      alt="TECHNOTSAV 2K25 - Cosmos of Innovation"
+                      className="w-full h-full object-cover"
+                      style={{ borderRadius: "1rem 1rem 0 0" }}
+                    />
+                    {/* Gradient overlay for readability */}
                     <div
-                      className="bubble-card p-10 text-center text-sm text-muted-foreground"
-                      data-ocid={`home.${tab}.empty_state`}
-                    >
-                      {(() => {
-                        const TabIcon = tabData[tab].icon;
-                        return (
-                          <TabIcon className="h-8 w-8 mx-auto mb-2 opacity-30" />
-                        );
-                      })()}
-                      <p>{t("noPosts")}</p>
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.35) 100%)",
+                        borderRadius: "1rem 1rem 0 0",
+                      }}
+                    />
+                    {/* Floating badge on image */}
+                    <div className="absolute top-3 left-3 flex gap-1.5">
+                      <span
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm"
+                        style={{
+                          background: "rgba(244,63,94,0.92)",
+                          color: "#fff",
+                          backdropFilter: "blur(6px)",
+                        }}
+                      >
+                        Announcement
+                      </span>
                     </div>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
-                      {tabData[tab].posts.map((post, i) => (
+                  </div>
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-4 gap-3">
+                    {/* Type badge */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-rose-300 text-rose-600 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-700"
+                      >
+                        National Level Technical Fest
+                      </Badge>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-display font-bold text-base leading-snug text-foreground">
+                      TECHNOTSAV 2K25 -- Cosmos of Innovation
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      A National Level Technical Fest celebrating innovation and
+                      technology at D.Y. Patil College of Engineering and
+                      Technology.
+                    </p>
+
+                    {/* Activities section */}
+                    <div className="mt-auto pt-1">
+                      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                        Activities Include
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">
+                          <Code2 className="h-3 w-3" />
+                          Coding Competitions
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300">
+                          <Bot className="h-3 w-3" />
+                          Robotics Events
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-900/40 dark:text-fuchsia-300">
+                          <FlaskConical className="h-3 w-3" />
+                          Project Exhibitions
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Dynamic announcement posts */}
+                {annLoading
+                  ? ["sk1", "sk2", "sk3"].map((k) => (
+                      <Skeleton key={k} className="h-44 rounded-2xl" />
+                    ))
+                  : announcements.map((post, i) => (
+                      <PostCard
+                        key={post.id.toString()}
+                        post={post}
+                        clubs={clubs}
+                        index={i + 1}
+                      />
+                    ))}
+              </div>
+            </TabsContent>
+
+            {/* Updates tab - always shows ARPAN Annual Gathering card at top */}
+            <TabsContent value="updates" className="mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                {/* Static ARPAN Annual Gathering card */}
+                <motion.div
+                  data-ocid="home.updates.arpan.card"
+                  className="bubble-card border-0 overflow-hidden rounded-2xl flex flex-col"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                >
+                  {/* Banner image */}
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ height: "180px" }}
+                  >
+                    <img
+                      src="/assets/generated/arpan-gathering.dim_800x450.jpg"
+                      alt="ARPAN Annual Gathering"
+                      className="w-full h-full object-cover"
+                      style={{ borderRadius: "1rem 1rem 0 0" }}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.38) 100%)",
+                        borderRadius: "1rem 1rem 0 0",
+                      }}
+                    />
+                    <div className="absolute top-3 left-3 flex gap-1.5">
+                      <span
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm"
+                        style={{
+                          background: "rgba(236,72,153,0.92)",
+                          color: "#fff",
+                          backdropFilter: "blur(6px)",
+                        }}
+                      >
+                        Update
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-4 gap-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-pink-300 text-pink-600 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-300 dark:border-pink-700"
+                      >
+                        Annual College Event
+                      </Badge>
+                    </div>
+
+                    <h3 className="font-display font-bold text-base leading-snug text-foreground">
+                      ARPAN Annual Gathering
+                    </h3>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      The most awaited annual gathering of D.Y. Patil College of
+                      Engineering and Technology, bringing together students,
+                      faculty, and alumni for a celebration of community,
+                      culture, and achievement.
+                    </p>
+
+                    <div className="mt-auto pt-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300">
+                          <Users className="h-3 w-3" />
+                          Community Celebration
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">
+                          <CalendarDays className="h-3 w-3" />
+                          Annual Event
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Dynamic update posts */}
+                {updLoading
+                  ? ["sk1", "sk2", "sk3"].map((k) => (
+                      <Skeleton key={k} className="h-44 rounded-2xl" />
+                    ))
+                  : updates.length === 0
+                    ? null
+                    : updates.map((post, i) => (
                         <PostCard
                           key={post.id.toString()}
                           post={post}
@@ -271,11 +426,38 @@ export function HomePage() {
                           index={i + 1}
                         />
                       ))}
-                    </div>
-                  )}
-                </TabsContent>
-              ),
-            )}
+              </div>
+            </TabsContent>
+
+            {/* Events tab */}
+            <TabsContent value="events" className="mt-4">
+              {evtLoading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                  {["sk1", "sk2", "sk3", "sk4"].map((k) => (
+                    <Skeleton key={k} className="h-44 rounded-2xl" />
+                  ))}
+                </div>
+              ) : eventPosts.length === 0 ? (
+                <div
+                  className="bubble-card p-10 text-center text-sm text-muted-foreground"
+                  data-ocid="home.events.empty_state"
+                >
+                  <CalendarDays className="h-8 w-8 mx-auto mb-2 opacity-30" />
+                  <p>{t("noPosts")}</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                  {eventPosts.map((post, i) => (
+                    <PostCard
+                      key={post.id.toString()}
+                      post={post}
+                      clubs={clubs}
+                      index={i + 1}
+                    />
+                  ))}
+                </div>
+              )}
+            </TabsContent>
           </Tabs>
         </motion.section>
 
