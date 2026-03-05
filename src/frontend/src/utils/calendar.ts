@@ -6,6 +6,48 @@ function formatICSDate(ms: number): string {
   return `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
 }
 
+export function downloadStaticICS(
+  title: string,
+  description: string,
+  dateMs: number,
+  location = "D.Y. Patil College of Engineering and Technology",
+) {
+  const startDate = formatICSDate(dateMs);
+  const endDate = formatICSDate(dateMs + 3600_000);
+  const now = formatICSDate(Date.now());
+  const uid = `dyp-static-${title.replace(/\s+/g, "-").toLowerCase()}-${dateMs}@dypcet.ac.in`;
+
+  const ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//DYP College//Social Network//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:${uid}`,
+    `DTSTAMP:${now}`,
+    `DTSTART:${startDate}`,
+    `DTEND:${endDate}`,
+    `SUMMARY:${title}`,
+    `DESCRIPTION:${description.replace(/\n/g, "\\n")}`,
+    "ORGANIZER;CN=DYP COET:MAILTO:events@dypcet.ac.in",
+    `LOCATION:${location}`,
+    "STATUS:CONFIRMED",
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+
+  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${title.replace(/\s+/g, "_")}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 export function downloadICS(post: Post) {
   const eventDateMs = post.eventDate
     ? Number(post.eventDate) / 1_000_000

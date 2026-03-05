@@ -2,7 +2,9 @@ import { PostCategory } from "@/backend";
 import { ActivityPulse } from "@/components/home/ActivityPulse";
 import { EventCalendarWidget } from "@/components/home/EventCalendarWidget";
 import { UpcomingEventsStrip } from "@/components/home/UpcomingEventsStrip";
+import { EventActionButtons } from "@/components/shared/EventActionButtons";
 import { PostCard } from "@/components/shared/PostCard";
+import { StaticCountdown } from "@/components/shared/StaticCountdown";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -310,6 +312,110 @@ export function HomePage() {
                         </span>
                       </div>
                     </div>
+                    <StaticCountdown
+                      dateMs={new Date("2026-03-20").getTime()}
+                      accentClass="text-rose-600 dark:text-rose-400"
+                      bgClass="bg-rose-50 dark:bg-rose-950/40"
+                    />
+                    <EventActionButtons
+                      title="TECHNOTSAV 2K25 - Cosmos of Innovation"
+                      description="A National Level Technical Fest celebrating innovation and technology at D.Y. Patil College of Engineering and Technology. Activities: Coding Competitions, Robotics Events, Project Exhibitions."
+                      dateMs={new Date("2026-03-20").getTime()}
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Static ARPAN Annual Sports Meet card */}
+                <motion.div
+                  data-ocid="home.announcements.arpan_sports.card"
+                  className="bubble-card border-0 overflow-hidden rounded-2xl flex flex-col"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                >
+                  {/* Banner */}
+                  <div
+                    className="relative w-full overflow-hidden flex items-center justify-center"
+                    style={{
+                      height: "180px",
+                      background:
+                        "linear-gradient(135deg, #f97316 0%, #fb923c 40%, #fbbf24 100%)",
+                      borderRadius: "1rem 1rem 0 0",
+                    }}
+                  >
+                    {/* Decorative circles */}
+                    <div
+                      className="absolute inset-0 overflow-hidden"
+                      style={{ borderRadius: "1rem 1rem 0 0" }}
+                    >
+                      <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white opacity-10" />
+                      <div className="absolute bottom-0 -left-4 w-20 h-20 rounded-full bg-white opacity-10" />
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full border-4 border-white opacity-10" />
+                    </div>
+                    {/* Sports icon */}
+                    <div className="relative flex flex-col items-center gap-2">
+                      <span className="text-5xl">🏅</span>
+                      <span className="text-white font-bold text-sm tracking-wide opacity-90">
+                        ARPAN SPORTS MEET
+                      </span>
+                    </div>
+                    {/* Badge */}
+                    <div className="absolute top-3 left-3">
+                      <span
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm"
+                        style={{
+                          background: "rgba(234,88,12,0.92)",
+                          color: "#fff",
+                          backdropFilter: "blur(6px)",
+                        }}
+                      >
+                        Announcement
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-4 gap-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-orange-300 text-orange-600 bg-orange-50 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-700"
+                      >
+                        Annual Sports Event
+                      </Badge>
+                    </div>
+                    <h3 className="font-display font-bold text-base leading-snug text-foreground">
+                      The ARPAN Annual Sports Meet
+                    </h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      The grand annual sports event at D.Y. Patil College of
+                      Engineering and Technology, celebrating athletic spirit,
+                      teamwork, and college pride.
+                    </p>
+                    <div className="mt-auto pt-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300">
+                          🏃 Athletics
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">
+                          ⚽ Team Sports
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300">
+                          🏆 Championships
+                        </span>
+                      </div>
+                    </div>
+                    <StaticCountdown
+                      dateMs={new Date("2026-03-25").getTime()}
+                      accentClass="text-orange-600 dark:text-orange-400"
+                      bgClass="bg-orange-50 dark:bg-orange-950/40"
+                    />
+                    <EventActionButtons
+                      title="The ARPAN Annual Sports Meet"
+                      description="The grand annual sports event at D.Y. Patil College of Engineering and Technology, celebrating athletic spirit, teamwork, and college pride."
+                      dateMs={new Date("2026-03-25").getTime()}
+                    />
                   </div>
                 </motion.div>
 
@@ -408,6 +514,115 @@ export function HomePage() {
                         </span>
                       </div>
                     </div>
+                    <StaticCountdown
+                      dateMs={new Date("2026-04-05").getTime()}
+                      accentClass="text-pink-600 dark:text-pink-400"
+                      bgClass="bg-pink-50 dark:bg-pink-950/40"
+                    />
+                    <EventActionButtons
+                      title="ARPAN Annual Gathering"
+                      description="The most awaited annual gathering of D.Y. Patil College of Engineering and Technology, bringing together students, faculty, and alumni for a celebration of community, culture, and achievement."
+                      dateMs={new Date("2026-04-05").getTime()}
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Static Partial Lunar Eclipse card */}
+                <motion.div
+                  data-ocid="home.updates.lunar_eclipse.card"
+                  className="bubble-card border-0 overflow-hidden rounded-2xl flex flex-col"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                >
+                  {/* Banner image */}
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ height: "180px" }}
+                  >
+                    <img
+                      src="/assets/uploads/image-3-1.png"
+                      alt="Partial Lunar Eclipse observed at DYPCET"
+                      className="w-full h-full object-cover"
+                      style={{ borderRadius: "1rem 1rem 0 0" }}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.45) 100%)",
+                        borderRadius: "1rem 1rem 0 0",
+                      }}
+                    />
+                    <div className="absolute top-3 left-3 flex gap-1.5">
+                      <span
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm"
+                        style={{
+                          background: "rgba(99,102,241,0.92)",
+                          color: "#fff",
+                          backdropFilter: "blur(6px)",
+                        }}
+                      >
+                        Astronomy Club
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-4 gap-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-indigo-300 text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-700"
+                      >
+                        First Eclipse of 2026
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-violet-300 text-violet-600 bg-violet-50 dark:bg-violet-950/40 dark:text-violet-300 dark:border-violet-700"
+                      >
+                        Very Rare Image
+                      </Badge>
+                    </div>
+
+                    <h3 className="font-display font-bold text-base leading-snug text-foreground">
+                      Partial Lunar Eclipse at DYPCET Campus
+                    </h3>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Students of DYPCET have observed a Partial Lunar Eclipse
+                      from DYPCET campus under the Astronomy Club. This eclipse
+                      is the first eclipse of the year 2026. Total 67 students,
+                      9 faculty members and a number of civilians felt the
+                      experience of the lunar eclipse.
+                    </p>
+
+                    <div className="mt-auto pt-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                          <Users className="h-3 w-3" />
+                          67 Students
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+                          <Users className="h-3 w-3" />9 Faculty Members
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+                          <CalendarDays className="h-3 w-3" />
+                          Year 2026
+                        </span>
+                      </div>
+                    </div>
+                    <StaticCountdown
+                      dateMs={new Date("2026-03-14").getTime()}
+                      accentClass="text-indigo-600 dark:text-indigo-400"
+                      bgClass="bg-indigo-50 dark:bg-indigo-950/40"
+                    />
+                    <EventActionButtons
+                      title="Partial Lunar Eclipse at DYPCET Campus"
+                      description="Students of DYPCET observed a Partial Lunar Eclipse from DYPCET campus under the Astronomy Club. First eclipse of 2026. 67 students, 9 faculty members and civilians participated."
+                      dateMs={new Date("2026-03-14").getTime()}
+                    />
                   </div>
                 </motion.div>
 
@@ -447,7 +662,7 @@ export function HomePage() {
                     style={{ height: "180px" }}
                   >
                     <img
-                      src="/assets/uploads/image-1-1.png"
+                      src="/assets/uploads/image-2-1.png"
                       alt="Dimension X Hackathon"
                       className="w-full h-full object-cover"
                       style={{ borderRadius: "1rem 1rem 0 0" }}
@@ -510,6 +725,104 @@ export function HomePage() {
                         </span>
                       </div>
                     </div>
+                    <StaticCountdown
+                      dateMs={new Date("2026-03-28").getTime()}
+                      accentClass="text-emerald-600 dark:text-emerald-400"
+                      bgClass="bg-emerald-50 dark:bg-emerald-950/40"
+                    />
+                    <EventActionButtons
+                      title="Dimension X Hackathon"
+                      description="A National Level 24-Hour Open Innovation Hackathon powered by HAC2KILL. No registration fee. Registrations are open now!"
+                      dateMs={new Date("2026-03-28").getTime()}
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Static ECHO Got Talent card */}
+                <motion.div
+                  data-ocid="home.events.echo_got_talent.card"
+                  className="bubble-card border-0 overflow-hidden rounded-2xl flex flex-col"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                >
+                  {/* Image banner */}
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{
+                      height: "180px",
+                      borderRadius: "1rem 1rem 0 0",
+                    }}
+                  >
+                    <img
+                      src="/assets/uploads/image-4-1.png"
+                      alt="Cultural Fest / ECHO Got Talent - POV: Perspective of Voices"
+                      className="w-full h-full object-cover object-top"
+                      style={{ borderRadius: "1rem 1rem 0 0" }}
+                    />
+                    <div className="absolute top-3 left-3 flex gap-1.5">
+                      <span
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm"
+                        style={{
+                          background: "rgba(168,85,247,0.92)",
+                          color: "#fff",
+                          backdropFilter: "blur(6px)",
+                        }}
+                      >
+                        Event
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-4 gap-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-purple-300 text-purple-600 bg-purple-50 dark:bg-purple-950/40 dark:text-purple-300 dark:border-purple-700"
+                      >
+                        Cultural Talent Show
+                      </Badge>
+                    </div>
+
+                    <h3 className="font-display font-bold text-base leading-snug text-foreground">
+                      Cultural Fest / ECHO Got Talent
+                    </h3>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      POV: Perspective of Voices. Themes include Geopolitical,
+                      Sustainability, Artificial Intelligence, Space and Human
+                      Psychology. Entry: Solo 100/- | Duo 150/-. Venue: Seminar
+                      Hall, DYPCET.
+                    </p>
+
+                    <div className="mt-auto pt-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+                          <CalendarDays className="h-3 w-3" />
+                          07 March 2026
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300">
+                          <Megaphone className="h-3 w-3" />
+                          Cultural Fest
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+                          <Users className="h-3 w-3" />
+                          Open to All
+                        </span>
+                      </div>
+                    </div>
+                    <StaticCountdown
+                      dateMs={new Date("2026-03-07").getTime()}
+                      accentClass="text-purple-600 dark:text-purple-400"
+                      bgClass="bg-purple-50 dark:bg-purple-950/40"
+                    />
+                    <EventActionButtons
+                      title="Cultural Fest / ECHO Got Talent"
+                      description="POV: Perspective of Voices. Themes: Geopolitical, Sustainability, Artificial Intelligence, Space and Human Psychology. Entry: Solo 100/- | Duo 150/-. Venue: Seminar Hall, DYPCET."
+                      dateMs={new Date("2026-03-07").getTime()}
+                    />
                   </div>
                 </motion.div>
 

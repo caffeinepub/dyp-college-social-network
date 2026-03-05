@@ -1,12 +1,9 @@
 import { type Club, type Post, PostCategory } from "@/backend";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { downloadICS } from "@/utils/calendar";
 import { formatRelativeTime } from "@/utils/time";
-import { CalendarPlus, Clock, User } from "lucide-react";
+import { Clock, User } from "lucide-react";
 import { CountdownTimer } from "./CountdownTimer";
+import { EventActionButtons } from "./EventActionButtons";
 
 interface Props {
   post: Post;
@@ -24,7 +21,6 @@ const categoryColors: Record<PostCategory, string> = {
 };
 
 export function PostCard({ post, clubs, index }: Props) {
-  const { t } = useLanguage();
   const club = clubs.find((c) => c.id === post.clubId);
 
   return (
@@ -80,17 +76,14 @@ export function PostCard({ post, clubs, index }: Props) {
         {post.category === PostCategory.Event && post.eventDate && (
           <div className="space-y-2 pt-1">
             <CountdownTimer eventDateNano={post.eventDate} />
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full gap-1.5 rounded-xl border-primary/20 text-primary hover:bg-primary/5 font-medium text-xs"
-              onClick={() => downloadICS(post)}
-              data-ocid="event.add_calendar.button"
-            >
-              <CalendarPlus className="h-3.5 w-3.5" />
-              {t("addToCalendar")}
-            </Button>
           </div>
+        )}
+        {post.eventDate && (
+          <EventActionButtons
+            title={post.title}
+            description={post.body}
+            dateMs={Number(post.eventDate) / 1_000_000}
+          />
         )}
       </CardContent>
     </Card>
