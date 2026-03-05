@@ -57,12 +57,19 @@ function AppInner() {
   }, []);
 
   // Parse current route
-  const clubSlugMatch = currentPath.match(/^\/club\/(.+)/);
+  const clubSlugMatch = currentPath.match(/^\/club\/([^/]+)(?:\/([^/]+))?/);
   const clubSlug = clubSlugMatch ? clubSlugMatch[1] : undefined;
+  const subteamSlug = clubSlugMatch ? clubSlugMatch[2] : undefined;
 
   const renderPage = () => {
     if (clubSlug) {
-      return <ClubPage slug={clubSlug} onNavigate={navigate} />;
+      return (
+        <ClubPage
+          slug={clubSlug}
+          subteamSlug={subteamSlug}
+          onNavigate={navigate}
+        />
+      );
     }
     return <HomePage />;
   };

@@ -6,15 +6,18 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAllClubs, usePostsByClub } from "@/hooks/useQueries";
 import { ArrowLeft, Users } from "lucide-react";
 import { motion } from "motion/react";
+import { ECellSubteamPage } from "./ECellSubteamPage";
 import { GdgPage } from "./GdgPage";
+import { GdgSubteamPage } from "./GdgSubteamPage";
 import { ThemedClubPage } from "./ThemedClubPage";
 
 interface Props {
   slug: string;
+  subteamSlug?: string;
   onNavigate: (path: string) => void;
 }
 
-export function ClubPage({ slug, onNavigate }: Props) {
+export function ClubPage({ slug, subteamSlug, onNavigate }: Props) {
   const { t } = useLanguage();
   const { data: clubs = [], isLoading: clubsLoading } = useAllClubs();
 
@@ -39,6 +42,18 @@ export function ClubPage({ slug, onNavigate }: Props) {
   );
 
   const isLoading = clubsLoading || postsLoading;
+
+  // GDG subteam pages
+  if (slug === "gdg" && subteamSlug) {
+    return <GdgSubteamPage subteamSlug={subteamSlug} onNavigate={onNavigate} />;
+  }
+
+  // E-Cell subteam pages
+  if (slug === "e-cell" && subteamSlug) {
+    return (
+      <ECellSubteamPage subteamSlug={subteamSlug} onNavigate={onNavigate} />
+    );
+  }
 
   // GDG gets its own special page
   if (slug === "gdg") {

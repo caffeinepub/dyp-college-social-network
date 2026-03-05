@@ -1,13 +1,22 @@
 import type { Club } from "@/backend";
+import { ClubRegistrationModal } from "@/components/shared/ClubRegistrationModal";
 import { PostCard } from "@/components/shared/PostCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CLUBS_CONFIG } from "@/config/clubs";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useAllClubs, usePostsByClub } from "@/hooks/useQueries";
-import { ArrowLeft, Users } from "lucide-react";
+import {
+  ArrowLeft,
+  Code,
+  Crown,
+  FileText,
+  Megaphone,
+  UserPlus,
+  Users,
+} from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   onNavigate: (path: string) => void;
@@ -174,6 +183,7 @@ function FloatingComputersCanvas() {
 
 export function GdgPage({ onNavigate, clubs, clubsLoading }: Props) {
   const { isDark } = useTheme();
+  const [registerOpen, setRegisterOpen] = useState(false);
   const allClubs = useAllClubs();
   const resolvedClubs = clubs.length > 0 ? clubs : (allClubs.data ?? []);
 
@@ -364,6 +374,146 @@ export function GdgPage({ onNavigate, clubs, clubsLoading }: Props) {
               </div>
             </motion.div>
 
+            {/* Join GDG Button */}
+            <motion.div
+              className="mb-5"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12 }}
+            >
+              <Button
+                onClick={() => setRegisterOpen(true)}
+                className="rounded-2xl px-6 h-11 font-semibold text-sm gap-2 text-white border-0"
+                style={{
+                  background: isDark
+                    ? "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)"
+                    : "linear-gradient(135deg, #16a34a 0%, #15803d 100%)",
+                  boxShadow: isDark
+                    ? "0 6px 20px rgba(34,197,94,0.35)"
+                    : "0 4px 16px rgba(22,163,74,0.30)",
+                }}
+                data-ocid="gdg.register.button"
+              >
+                <UserPlus className="h-4 w-4" />
+                Join GDG — Become a Core Member
+              </Button>
+            </motion.div>
+
+            {/* Our Teams Section */}
+            <motion.div
+              className="mb-6"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="opacity-60"
+                  style={{
+                    width: 14,
+                    height: 14,
+                    clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+                    background: isDark ? "#4ade80" : "#16a34a",
+                    flexShrink: 0,
+                  }}
+                />
+                <h2
+                  className="font-display font-bold text-base"
+                  style={{ color: isDark ? "#f0fdf4" : "#14532d" }}
+                >
+                  Our Teams
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  {
+                    slug: "technical-team",
+                    name: "Technical Team",
+                    color: "#22c55e",
+                    icon: Code,
+                    desc: "Building solutions",
+                  },
+                  {
+                    slug: "pr-team",
+                    name: "PR Team",
+                    color: "#10b981",
+                    icon: Megaphone,
+                    desc: "Amplifying voice",
+                  },
+                  {
+                    slug: "documentation-team",
+                    name: "Documentation Team",
+                    color: "#84cc16",
+                    icon: FileText,
+                    desc: "Capturing knowledge",
+                  },
+                  {
+                    slug: "management-team",
+                    name: "Management Team",
+                    color: "#4ade80",
+                    icon: Crown,
+                    desc: "Leading the vision",
+                  },
+                ].map((team, idx) => {
+                  const Icon = team.icon;
+                  return (
+                    <motion.button
+                      key={team.slug}
+                      onClick={() => onNavigate(`/club/gdg/${team.slug}`)}
+                      className="text-left rounded-2xl p-4 relative overflow-hidden group cursor-pointer"
+                      style={{
+                        background: isDark
+                          ? `linear-gradient(135deg, ${team.color}18 0%, ${team.color}0d 100%)`
+                          : `linear-gradient(135deg, ${team.color}15 0%, ${team.color}08 100%)`,
+                        border: `1px solid ${team.color}${isDark ? "40" : "30"}`,
+                      }}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + idx * 0.07 }}
+                      whileHover={{ scale: 1.03, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      data-ocid={`gdg.team.card.${idx + 1}`}
+                    >
+                      {/* Triangle decoration */}
+                      <div
+                        className="absolute top-2 right-2 opacity-20 group-hover:opacity-40 transition-opacity"
+                        style={{
+                          width: 20,
+                          height: 20,
+                          clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+                          background: team.color,
+                        }}
+                      />
+                      <div
+                        className="w-8 h-8 rounded-xl flex items-center justify-center mb-2"
+                        style={{ background: `${team.color}25` }}
+                      >
+                        <Icon
+                          className="h-4 w-4"
+                          style={{ color: team.color }}
+                        />
+                      </div>
+                      <p
+                        className="font-semibold text-xs leading-tight mb-1"
+                        style={{ color: isDark ? "#f0fdf4" : "#14532d" }}
+                      >
+                        {team.name}
+                      </p>
+                      <p
+                        className="text-xs"
+                        style={{
+                          color: isDark ? "#86efac" : "#166534",
+                          opacity: 0.7,
+                        }}
+                      >
+                        5 Members
+                      </p>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </motion.div>
+
             {/* Posts Section */}
             <div>
               <div className="flex items-center gap-3 mb-3">
@@ -453,6 +603,14 @@ export function GdgPage({ onNavigate, clubs, clubsLoading }: Props) {
           </>
         )}
       </div>
+
+      <ClubRegistrationModal
+        open={registerOpen}
+        onClose={() => setRegisterOpen(false)}
+        clubName="GDG"
+        primaryColor={isDark ? "#4ade80" : "#16a34a"}
+        isDark={isDark}
+      />
     </div>
   );
 }

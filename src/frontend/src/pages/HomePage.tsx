@@ -1,5 +1,6 @@
 import { PostCategory } from "@/backend";
 import { ActivityPulse } from "@/components/home/ActivityPulse";
+import { EventCalendarWidget } from "@/components/home/EventCalendarWidget";
 import { UpcomingEventsStrip } from "@/components/home/UpcomingEventsStrip";
 import { PostCard } from "@/components/shared/PostCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -334,15 +335,20 @@ export function HomePage() {
         </motion.section>
       </div>
 
-      {/* Right Sidebar - Activity Pulse */}
+      {/* Right Sidebar - Calendar Widget + Activity Pulse */}
       <motion.aside
-        className="hidden xl:block w-72 shrink-0 py-5 relative"
+        className="block w-64 lg:w-72 shrink-0 py-5 relative"
         style={{ zIndex: 1 }}
         initial={{ opacity: 0, x: 16 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, delay: 0.2 }}
       >
-        <div className="sticky top-20">
+        <div className="sticky top-20 space-y-4">
+          <EventCalendarWidget
+            events={upcomingEvents}
+            clubs={clubs}
+            isLoading={eventsLoading || clubsLoading}
+          />
           <ActivityPulse
             entries={activity}
             clubs={clubs}

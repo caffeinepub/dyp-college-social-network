@@ -1,13 +1,30 @@
 import type { Club } from "@/backend";
+import { ClubRegistrationModal } from "@/components/shared/ClubRegistrationModal";
 import { PostCard } from "@/components/shared/PostCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CLUBS_CONFIG } from "@/config/clubs";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useAllClubs, usePostsByClub } from "@/hooks/useQueries";
-import { ArrowLeft, Users } from "lucide-react";
+import { ArrowLeft, UserPlus, Users } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+// ─── E-Cell Team Config ────────────────────────────────────────────────────────
+
+const ECELL_TEAM_CARDS = [
+  { slug: "content-social", name: "Content & Social Media", color: "#3b82f6" },
+  { slug: "management", name: "Management", color: "#2563eb" },
+  { slug: "design-tech", name: "Design & Tech", color: "#60a5fa" },
+  { slug: "film-media", name: "Film & Media", color: "#93c5fd" },
+  { slug: "documentation", name: "Documentation", color: "#1d4ed8" },
+  {
+    slug: "corporate-relations",
+    name: "Corporate Relations",
+    color: "#1e40af",
+  },
+  { slug: "pr-media", name: "PR & Media", color: "#38bdf8" },
+];
 
 // ─── Theme definitions ────────────────────────────────────────────────────────
 
@@ -774,6 +791,7 @@ export function ThemedClubPage({
   clubsLoading,
 }: ThemedClubPageProps) {
   const { isDark } = useTheme();
+  const [registerOpen, setRegisterOpen] = useState(false);
   const allClubs = useAllClubs();
   const resolvedClubs = clubs.length > 0 ? clubs : (allClubs.data ?? []);
 
@@ -974,6 +992,113 @@ export function ThemedClubPage({
               </div>
             </motion.div>
 
+            {/* Join Club Button */}
+            <motion.div
+              className="mb-5"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12 }}
+            >
+              <Button
+                onClick={() => setRegisterOpen(true)}
+                className="rounded-2xl px-6 h-11 font-semibold text-sm gap-2 text-white border-0"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.primary} 0%, ${theme.mid} 100%)`,
+                  boxShadow: `0 4px 18px ${theme.primary}40`,
+                }}
+                data-ocid="themed-club.register.button"
+              >
+                <UserPlus className="h-4 w-4" />
+                Join {club.name} — Become a Core Member
+              </Button>
+            </motion.div>
+
+            {/* E-Cell Our Teams Section */}
+            {slug === "e-cell" && (
+              <motion.div
+                className="mb-6"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    className="opacity-60"
+                    style={{
+                      width: 14,
+                      height: 14,
+                      clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+                      background: isDark ? primaryLight : theme.mid,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <h2
+                    className="font-display font-bold text-base"
+                    style={{ color: isDark ? theme.lightBg : theme.darkBg }}
+                  >
+                    Our Teams
+                  </h2>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {ECELL_TEAM_CARDS.map((team, idx) => (
+                    <motion.button
+                      key={team.slug}
+                      onClick={() => onNavigate(`/club/e-cell/${team.slug}`)}
+                      className="text-left rounded-2xl p-4 relative overflow-hidden group cursor-pointer"
+                      style={{
+                        background: isDark
+                          ? `linear-gradient(135deg, ${team.color}18 0%, ${team.color}0d 100%)`
+                          : `linear-gradient(135deg, ${team.color}15 0%, ${team.color}08 100%)`,
+                        border: `1px solid ${team.color}${isDark ? "40" : "30"}`,
+                      }}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + idx * 0.06 }}
+                      whileHover={{ scale: 1.03, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      data-ocid={`ecell.team.card.${idx + 1}`}
+                    >
+                      {/* Triangle decoration */}
+                      <div
+                        className="absolute top-2 right-2 opacity-20 group-hover:opacity-40 transition-opacity"
+                        style={{
+                          width: 18,
+                          height: 18,
+                          clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+                          background: team.color,
+                        }}
+                      />
+                      {/* Color dot */}
+                      <div
+                        className="w-8 h-8 rounded-xl flex items-center justify-center mb-2 font-bold text-xs"
+                        style={{
+                          background: `${team.color}25`,
+                          color: team.color,
+                        }}
+                      >
+                        {team.name[0]}
+                      </div>
+                      <p
+                        className="font-semibold text-xs leading-tight mb-1"
+                        style={{ color: isDark ? theme.lightBg : theme.darkBg }}
+                      >
+                        {team.name}
+                      </p>
+                      <p
+                        className="text-xs"
+                        style={{
+                          color: isDark ? primaryLight : theme.mid,
+                          opacity: 0.7,
+                        }}
+                      >
+                        5 Members
+                      </p>
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
             {/* Posts section */}
             <div>
               <div className="flex items-center gap-3 mb-3">
@@ -1065,6 +1190,16 @@ export function ThemedClubPage({
           </>
         )}
       </div>
+
+      <ClubRegistrationModal
+        open={registerOpen}
+        onClose={() => setRegisterOpen(false)}
+        clubName={club.name}
+        primaryColor={
+          isDark ? (theme.accentColors[1] ?? theme.primary) : theme.primary
+        }
+        isDark={isDark}
+      />
     </div>
   );
 }
