@@ -346,7 +346,7 @@ export function GdgSubteamPage({ subteamSlug, onNavigate }: Props) {
                       opacity: 0.8,
                     }}
                   >
-                    GDG — Team
+                    GDG Team
                   </p>
                   <span
                     className="text-xs font-semibold px-2 py-0.5 rounded-full"

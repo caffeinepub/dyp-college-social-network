@@ -1,12 +1,14 @@
 import type { Club } from "@/backend";
 import { ClubRegistrationModal } from "@/components/shared/ClubRegistrationModal";
+import { FacultyAskDoubtModal } from "@/components/shared/FacultyAskDoubtModal";
+import { NccCadetModal } from "@/components/shared/NccCadetModal";
 import { PostCard } from "@/components/shared/PostCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CLUBS_CONFIG } from "@/config/clubs";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useAllClubs, usePostsByClub } from "@/hooks/useQueries";
-import { ArrowLeft, UserPlus, Users } from "lucide-react";
+import { ArrowLeft, BookOpen, Shield, UserPlus, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -792,6 +794,8 @@ export function ThemedClubPage({
 }: ThemedClubPageProps) {
   const { isDark } = useTheme();
   const [registerOpen, setRegisterOpen] = useState(false);
+  const [doubtOpen, setDoubtOpen] = useState(false);
+  const [cadetOpen, setCadetOpen] = useState(false);
   const allClubs = useAllClubs();
   const resolvedClubs = clubs.length > 0 ? clubs : (allClubs.data ?? []);
 
@@ -886,7 +890,7 @@ export function ThemedClubPage({
             >
               {/* ── Triangle decorations ── */}
 
-              {/* Large pointing up — top right */}
+              {/* Large pointing up - top right */}
               <div
                 className="absolute -top-4 -right-4 opacity-15"
                 style={{
@@ -896,7 +900,7 @@ export function ThemedClubPage({
                   background: theme.mid,
                 }}
               />
-              {/* Medium pointing down — bottom left */}
+              {/* Medium pointing down - bottom left */}
               <div
                 className="absolute bottom-2 left-6 opacity-10"
                 style={{
@@ -906,7 +910,7 @@ export function ThemedClubPage({
                   background: primaryMid,
                 }}
               />
-              {/* Small pointing up — right center */}
+              {/* Small pointing up - right center */}
               <div
                 className="absolute top-1/2 right-16 -translate-y-1/2 opacity-20"
                 style={{
@@ -916,7 +920,7 @@ export function ThemedClubPage({
                   background: primaryLight,
                 }}
               />
-              {/* Tiny pointing down — top left */}
+              {/* Tiny pointing down - top left */}
               <div
                 className="absolute top-4 left-1/3 opacity-15"
                 style={{
@@ -926,7 +930,7 @@ export function ThemedClubPage({
                   background: theme.mid,
                 }}
               />
-              {/* Medium pointing up — bottom right */}
+              {/* Medium pointing up - bottom right */}
               <div
                 className="absolute -bottom-5 right-1/4 opacity-12"
                 style={{
@@ -992,25 +996,55 @@ export function ThemedClubPage({
               </div>
             </motion.div>
 
-            {/* Join Club Button */}
+            {/* Action Button - conditional by club */}
             <motion.div
               className="mb-5"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12 }}
             >
-              <Button
-                onClick={() => setRegisterOpen(true)}
-                className="rounded-2xl px-6 h-11 font-semibold text-sm gap-2 text-white border-0"
-                style={{
-                  background: `linear-gradient(135deg, ${theme.primary} 0%, ${theme.mid} 100%)`,
-                  boxShadow: `0 4px 18px ${theme.primary}40`,
-                }}
-                data-ocid="themed-club.register.button"
-              >
-                <UserPlus className="h-4 w-4" />
-                Join {club.name} — Become a Core Member
-              </Button>
+              {slug === "faculty" ? (
+                <Button
+                  onClick={() => setDoubtOpen(true)}
+                  className="rounded-2xl px-6 h-11 font-semibold text-sm gap-2 text-white border-0"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #ca8a04 0%, #92400e 100%)",
+                    boxShadow: "0 4px 18px #ca8a0440",
+                  }}
+                  data-ocid="themed-club.ask-doubt.button"
+                >
+                  <BookOpen className="h-4 w-4" />
+                  Ask a Doubt (Faculty)
+                </Button>
+              ) : slug === "ncc" ? (
+                <Button
+                  onClick={() => setCadetOpen(true)}
+                  className="rounded-2xl px-6 h-11 font-semibold text-sm gap-2 text-white border-0"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
+                    boxShadow: "0 4px 18px #22c55e40",
+                  }}
+                  data-ocid="themed-club.become-cadet.button"
+                >
+                  <Shield className="h-4 w-4" />
+                  Become an NCC Cadet
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => setRegisterOpen(true)}
+                  className="rounded-2xl px-6 h-11 font-semibold text-sm gap-2 text-white border-0"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.primary} 0%, ${theme.mid} 100%)`,
+                    boxShadow: `0 4px 18px ${theme.primary}40`,
+                  }}
+                  data-ocid="themed-club.register.button"
+                >
+                  <UserPlus className="h-4 w-4" />
+                  Join {club.name} and Become a Core Member
+                </Button>
+              )}
             </motion.div>
 
             {/* E-Cell Our Teams Section */}
@@ -1172,7 +1206,7 @@ export function ThemedClubPage({
                       }}
                     />
                   </div>
-                  No posts yet — check back soon!
+                  No posts yet. Check back soon!
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1191,15 +1225,31 @@ export function ThemedClubPage({
         )}
       </div>
 
-      <ClubRegistrationModal
-        open={registerOpen}
-        onClose={() => setRegisterOpen(false)}
-        clubName={club.name}
-        primaryColor={
-          isDark ? (theme.accentColors[1] ?? theme.primary) : theme.primary
-        }
-        isDark={isDark}
-      />
+      {slug === "faculty" ? (
+        <FacultyAskDoubtModal
+          open={doubtOpen}
+          onClose={() => setDoubtOpen(false)}
+          primaryColor={theme.primary}
+          isDark={isDark}
+        />
+      ) : slug === "ncc" ? (
+        <NccCadetModal
+          open={cadetOpen}
+          onClose={() => setCadetOpen(false)}
+          primaryColor={theme.primary}
+          isDark={isDark}
+        />
+      ) : (
+        <ClubRegistrationModal
+          open={registerOpen}
+          onClose={() => setRegisterOpen(false)}
+          clubName={club.name}
+          primaryColor={
+            isDark ? (theme.accentColors[1] ?? theme.primary) : theme.primary
+          }
+          isDark={isDark}
+        />
+      )}
     </div>
   );
 }

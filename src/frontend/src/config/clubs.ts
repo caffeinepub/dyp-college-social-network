@@ -9,13 +9,13 @@ export const CLUBS_CONFIG: ClubConfig[] = [
     name: "GDG",
     slug: "gdg",
     description:
-      "Google Developer Group — a student-led community exploring the latest in Google technologies, open-source, and developer tools.",
+      "Google Developer Group, a student-led community exploring the latest in Google technologies, open-source, and developer tools.",
   },
   {
     name: "E-Cell",
     slug: "e-cell",
     description:
-      "Entrepreneurship Cell — fostering innovation, startup culture, and entrepreneurial mindset among students at DYP COET.",
+      "Entrepreneurship Cell, fostering innovation, startup culture, and entrepreneurial mindset among students at DYP COET.",
   },
   {
     name: "Official Theatre",
@@ -33,7 +33,7 @@ export const CLUBS_CONFIG: ClubConfig[] = [
     name: "NCC",
     slug: "ncc",
     description:
-      "National Cadet Corps — building discipline, leadership, and national service values among student cadets.",
+      "National Cadet Corps, building discipline, leadership, and national service values among student cadets.",
   },
   {
     name: "Official Music",
@@ -57,13 +57,13 @@ export const CLUBS_CONFIG: ClubConfig[] = [
     name: "NSS",
     slug: "nss",
     description:
-      "National Service Scheme — a public service program developing social welfare and community development initiatives.",
+      "National Service Scheme, a public service program developing social welfare and community development initiatives.",
   },
   {
     name: "SRC",
     slug: "src",
     description:
-      "Student Resource Center — providing academic support, mentorship, and learning resources to all students at DYP COET.",
+      "Student Resource Center, providing academic support, mentorship, and learning resources to all students at DYP COET.",
   },
   {
     name: "Faculty",

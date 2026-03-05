@@ -395,7 +395,7 @@ export function GdgPage({ onNavigate, clubs, clubsLoading }: Props) {
                 data-ocid="gdg.register.button"
               >
                 <UserPlus className="h-4 w-4" />
-                Join GDG — Become a Core Member
+                Join GDG and Become a Core Member
               </Button>
             </motion.div>
 
@@ -585,7 +585,7 @@ export function GdgPage({ onNavigate, clubs, clubsLoading }: Props) {
                       }}
                     />
                   </div>
-                  No posts yet — check back soon!
+                  No posts yet. Check back soon!
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/layout/Header";
 import { Sidebar } from "./components/layout/Sidebar";
 import { FloatingGitHubButton } from "./components/shared/FloatingGitHubButton";
+import { FlowerMenu } from "./components/shared/FlowerMenu";
 import { HelpModal } from "./components/shared/HelpModal";
 import { NotificationPanel } from "./components/shared/NotificationPanel";
 import { LanguageProvider } from "./contexts/LanguageContext";
-import { ThemeProvider } from "./contexts/ThemeContext";
+import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
 import { useActor } from "./hooks/useActor";
 import {
   useAllClubs,
@@ -25,6 +26,7 @@ function AppInner() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
+  const { isDark } = useTheme();
   const { actor, isFetching } = useActor();
   const { data: clubs = [], isLoading: clubsLoading } = useAllClubs();
   const { data: notifications = [] } = useNotifications();
@@ -100,6 +102,9 @@ function AppInner() {
 
       {/* Floating GitHub button */}
       <FloatingGitHubButton />
+
+      {/* Flower menu - bottom left: complaint, suggestion, live chat */}
+      <FlowerMenu isDark={isDark} />
 
       {/* Panels & Modals */}
       <NotificationPanel
