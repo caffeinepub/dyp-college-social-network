@@ -431,32 +431,102 @@ export function HomePage() {
 
             {/* Events tab */}
             <TabsContent value="events" className="mt-4">
-              {evtLoading ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
-                  {["sk1", "sk2", "sk3", "sk4"].map((k) => (
-                    <Skeleton key={k} className="h-44 rounded-2xl" />
-                  ))}
-                </div>
-              ) : eventPosts.length === 0 ? (
-                <div
-                  className="bubble-card p-10 text-center text-sm text-muted-foreground"
-                  data-ocid="home.events.empty_state"
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                {/* Static Hackathon card */}
+                <motion.div
+                  data-ocid="home.events.hackathon.card"
+                  className="bubble-card border-0 overflow-hidden rounded-2xl flex flex-col"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
                 >
-                  <CalendarDays className="h-8 w-8 mx-auto mb-2 opacity-30" />
-                  <p>{t("noPosts")}</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
-                  {eventPosts.map((post, i) => (
-                    <PostCard
-                      key={post.id.toString()}
-                      post={post}
-                      clubs={clubs}
-                      index={i + 1}
+                  {/* Banner image */}
+                  <div
+                    className="relative w-full overflow-hidden"
+                    style={{ height: "180px" }}
+                  >
+                    <img
+                      src="/assets/uploads/image-1-1.png"
+                      alt="Dimension X Hackathon"
+                      className="w-full h-full object-cover"
+                      style={{ borderRadius: "1rem 1rem 0 0" }}
                     />
-                  ))}
-                </div>
-              )}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.38) 100%)",
+                        borderRadius: "1rem 1rem 0 0",
+                      }}
+                    />
+                    <div className="absolute top-3 left-3 flex gap-1.5">
+                      <span
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm"
+                        style={{
+                          background: "rgba(16,185,129,0.92)",
+                          color: "#fff",
+                          backdropFilter: "blur(6px)",
+                        }}
+                      >
+                        Event
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-4 gap-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-emerald-300 text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-700"
+                      >
+                        National Level Innovation Hackathon
+                      </Badge>
+                    </div>
+
+                    <h3 className="font-display font-bold text-base leading-snug text-foreground">
+                      Dimension X Hackathon
+                    </h3>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      A National Level 24-Hour Open Innovation Hackathon powered
+                      by HAC2KILL. Registrations are open now!
+                    </p>
+
+                    <div className="mt-auto pt-1">
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                          <Code2 className="h-3 w-3" />
+                          Open Innovation
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300">
+                          <Users className="h-3 w-3" />
+                          No Registration Fee
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
+                          <CalendarDays className="h-3 w-3" />
+                          24 Hours
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Dynamic event posts */}
+                {evtLoading
+                  ? ["sk1", "sk2", "sk3"].map((k) => (
+                      <Skeleton key={k} className="h-44 rounded-2xl" />
+                    ))
+                  : eventPosts.map((post, i) => (
+                      <PostCard
+                        key={post.id.toString()}
+                        post={post}
+                        clubs={clubs}
+                        index={i + 1}
+                      />
+                    ))}
+              </div>
             </TabsContent>
           </Tabs>
         </motion.section>
