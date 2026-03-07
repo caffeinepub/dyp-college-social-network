@@ -14,9 +14,16 @@ import {
   useNotifications,
   usePreSeedData,
   useUnreadCount,
+  useUpcomingEvents,
 } from "./hooks/useQueries";
+import { AdminDashboardPage } from "./pages/AdminDashboardPage";
 import { ClubPage } from "./pages/ClubPage";
 import { HomePage } from "./pages/HomePage";
+import { ProfilePage } from "./pages/ProfilePage";
+import { RegisteredEventsPage } from "./pages/RegisteredEventsPage";
+import { SettingsPage } from "./pages/SettingsPage";
+import { StudentDashboardPage } from "./pages/StudentDashboardPage";
+import { TeacherDashboardPage } from "./pages/TeacherDashboardPage";
 
 function AppInner() {
   const [currentPath, setCurrentPath] = useState(
@@ -24,13 +31,15 @@ function AppInner() {
   );
   const [notifOpen, setNotifOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [sidebarMobileOpen, setSidebarMobileOpen] = useState(false);
 
   const { isDark } = useTheme();
   const { actor, isFetching } = useActor();
-  const { data: clubs = [], isLoading: clubsLoading } = useAllClubs();
   const { data: notifications = [] } = useNotifications();
   const { data: unreadCount = BigInt(0) } = useUnreadCount();
+  const { data: clubs = [], isLoading: clubsLoading } = useAllClubs();
+  const { data: upcomingEvents = [], isLoading: eventsLoading } =
+    useUpcomingEvents();
   const preSeed = usePreSeedData();
 
   // Seed data once
@@ -73,19 +82,27 @@ function AppInner() {
         />
       );
     }
-    return <HomePage />;
+    if (currentPath === "/dashboard/admin") return <AdminDashboardPage />;
+    if (currentPath === "/dashboard/student") return <StudentDashboardPage />;
+    if (currentPath === "/dashboard/teacher") return <TeacherDashboardPage />;
+    if (currentPath === "/registered-events") return <RegisteredEventsPage />;
+    if (currentPath === "/settings") return <SettingsPage />;
+    if (currentPath === "/profile") return <ProfilePage />;
+    return <HomePage onNavigate={navigate} />;
   };
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
+      {/* Left Sidebar with Event Calendar */}
       <Sidebar
         clubs={clubs}
         isLoading={clubsLoading}
-        currentClubSlug={clubSlug}
         onNavigate={navigate}
         currentPath={currentPath}
-        mobileOpen={mobileSidebarOpen}
-        onMobileClose={() => setMobileSidebarOpen(false)}
+        mobileOpen={sidebarMobileOpen}
+        onMobileClose={() => setSidebarMobileOpen(false)}
+        events={upcomingEvents}
+        eventsLoading={eventsLoading}
       />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
@@ -93,7 +110,7 @@ function AppInner() {
           unreadCount={Number(unreadCount)}
           onNotificationClick={() => setNotifOpen(true)}
           onHelpClick={() => setHelpOpen(true)}
-          onMenuClick={() => setMobileSidebarOpen(true)}
+          onMenuClick={() => setSidebarMobileOpen(true)}
         />
         <main className="flex-1 overflow-y-auto px-4 sm:px-6">
           {renderPage()}

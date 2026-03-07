@@ -1,10 +1,9 @@
-import type { Club } from "@/backend";
-import { CLUBS_CONFIG } from "@/config/clubs";
+import type { Club, Post } from "@/backend";
+import { EventCalendarWidget } from "@/components/home/EventCalendarWidget";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, Home, Users } from "lucide-react";
+import { Home } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
 
 interface Props {
   clubs: Club[];
@@ -14,19 +13,22 @@ interface Props {
   currentPath: string;
   mobileOpen?: boolean;
   onMobileClose?: () => void;
+  events?: Post[];
+  eventsLoading?: boolean;
 }
 
 export function Sidebar({
   clubs: _clubs,
   isLoading: _isLoading,
-  currentClubSlug,
+  currentClubSlug: _currentClubSlug,
   onNavigate,
   currentPath,
   mobileOpen = false,
   onMobileClose,
+  events = [],
+  eventsLoading = false,
 }: Props) {
   const { t } = useLanguage();
-  const [clubsExpanded, setClubsExpanded] = useState(true);
 
   const handleNav = (path: string) => {
     onNavigate(path);
@@ -75,56 +77,13 @@ export function Sidebar({
           {t("home")}
         </button>
 
-        {/* Clubs Dropdown */}
-        <div>
-          <button
-            type="button"
-            onClick={() => setClubsExpanded((e) => !e)}
-            className="sidebar-link w-full justify-between"
-            data-ocid="nav.clubs.dropdown"
-            aria-expanded={clubsExpanded}
-          >
-            <span className="flex items-center gap-2.5">
-              <Users className="h-4 w-4 shrink-0" />
-              {t("clubs")}
-            </span>
-            <motion.div
-              animate={{ rotate: clubsExpanded ? 0 : -90 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
-            </motion.div>
-          </button>
-
-          <AnimatePresence initial={false}>
-            {clubsExpanded && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                style={{ overflow: "hidden" }}
-              >
-                <div className="pl-2 mt-1 space-y-0.5">
-                  {CLUBS_CONFIG.map((club, i) => (
-                    <button
-                      key={club.slug}
-                      type="button"
-                      onClick={() => handleNav(`/club/${club.slug}`)}
-                      className={cn(
-                        "sidebar-link w-full pl-3 text-[13px]",
-                        currentClubSlug === club.slug ? "active" : "",
-                      )}
-                      data-ocid={`nav.club.link.${i + 1}`}
-                    >
-                      <ChevronRight className="h-3 w-3 shrink-0 text-muted-foreground" />
-                      {club.name}
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Event Calendar Widget */}
+        <div className="mt-3 px-1">
+          <EventCalendarWidget
+            events={events}
+            clubs={_clubs}
+            isLoading={eventsLoading || _isLoading}
+          />
         </div>
       </nav>
 

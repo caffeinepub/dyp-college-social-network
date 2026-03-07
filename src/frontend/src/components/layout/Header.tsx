@@ -1,14 +1,45 @@
 import { Button } from "@/components/ui/button";
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { type Language, useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
-import { Bell, Globe, HelpCircle, Menu, Moon, Sun } from "lucide-react";
+import {
+  Bell,
+  CalendarCheck,
+  ChevronDown,
+  Globe,
+  GraduationCap,
+  HelpCircle,
+  LayoutDashboard,
+  LogIn,
+  LogOut,
+  Map as MapIcon,
+  Menu,
+  Moon,
+  Settings,
+  ShieldCheck,
+  Sun,
+  User,
+} from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   unreadCount: number;
@@ -23,6 +54,201 @@ const languages: { value: Language; label: string; short: string }[] = [
   { value: "hin", label: "हिन्दी", short: "HIN" },
 ];
 
+function navigateTo(path: string) {
+  window.history.pushState({}, "", path);
+  window.dispatchEvent(new PopStateEvent("popstate"));
+}
+
+function MenuSheet() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const goTo = (path: string) => {
+    setSheetOpen(false);
+    navigateTo(path);
+  };
+
+  return (
+    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+      <SheetTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-xl h-9 w-9"
+          data-ocid="header.menu_sheet.button"
+          aria-label="Open options menu"
+        >
+          <Menu className="h-4.5 w-4.5" />
+        </Button>
+      </SheetTrigger>
+
+      <SheetContent
+        side="right"
+        className="w-72 sm:max-w-xs p-0 flex flex-col"
+        data-ocid="header.menu.sheet"
+      >
+        {/* Header branding */}
+        <SheetHeader className="px-5 pt-6 pb-4 border-b border-border/60">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-2xl flex items-center justify-center shadow-md"
+              style={{
+                background:
+                  "linear-gradient(135deg, #f472b6, #ec4899, #be185d)",
+              }}
+            >
+              <GraduationCap className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <SheetTitle className="font-display font-bold text-sm text-foreground leading-tight">
+                DYP COET
+              </SheetTitle>
+              <p className="text-[11px] text-muted-foreground mt-0.5">
+                College Social Network
+              </p>
+            </div>
+          </div>
+        </SheetHeader>
+
+        {/* Menu items */}
+        <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
+          {/* Login / Logout */}
+          <button
+            type="button"
+            className={cn(
+              "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left",
+              "hover:bg-primary/10 hover:text-primary",
+              isLoggedIn
+                ? "text-rose-600 dark:text-rose-400"
+                : "text-foreground",
+            )}
+            onClick={() => {
+              setIsLoggedIn((prev) => !prev);
+              toast.success(
+                isLoggedIn
+                  ? "Logged out successfully"
+                  : "Logged in successfully",
+              );
+            }}
+            data-ocid="header.login.button"
+          >
+            {isLoggedIn ? (
+              <LogOut className="h-4 w-4 shrink-0" />
+            ) : (
+              <LogIn className="h-4 w-4 shrink-0" />
+            )}
+            <span>{isLoggedIn ? "Logout" : "Login"}</span>
+          </button>
+
+          {/* Separator */}
+          <div className="my-2 h-px bg-border/60" />
+
+          {/* Dashboard - collapsible sub-options */}
+          <Collapsible open={dashboardOpen} onOpenChange={setDashboardOpen}>
+            <CollapsibleTrigger asChild>
+              <button
+                type="button"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-primary/10 hover:text-primary text-foreground text-left"
+                data-ocid="header.dashboard.toggle"
+              >
+                <LayoutDashboard className="h-4 w-4 shrink-0" />
+                <span className="flex-1">Dashboard</span>
+                <ChevronDown
+                  className={cn(
+                    "h-3.5 w-3.5 text-muted-foreground transition-transform duration-200",
+                    dashboardOpen && "rotate-180",
+                  )}
+                />
+              </button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pl-4 mt-1 space-y-0.5">
+              <button
+                type="button"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/30 dark:hover:text-rose-400 transition-colors text-left"
+                onClick={() => goTo("/dashboard/admin")}
+                data-ocid="header.dashboard.admin.button"
+              >
+                <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
+                Admin Dashboard
+              </button>
+              <button
+                type="button"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-pink-50 hover:text-pink-600 dark:hover:bg-pink-950/30 dark:hover:text-pink-400 transition-colors text-left"
+                onClick={() => goTo("/dashboard/student")}
+                data-ocid="header.dashboard.student.button"
+              >
+                <User className="h-3.5 w-3.5 shrink-0" />
+                Student Dashboard
+              </button>
+              <button
+                type="button"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-amber-50 hover:text-amber-600 dark:hover:bg-amber-950/30 dark:hover:text-amber-400 transition-colors text-left"
+                onClick={() => goTo("/dashboard/teacher")}
+                data-ocid="header.dashboard.teacher.button"
+              >
+                <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+                Teacher Dashboard
+              </button>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Registered Events */}
+          <button
+            type="button"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-primary/10 hover:text-primary text-foreground text-left"
+            onClick={() => goTo("/registered-events")}
+            data-ocid="header.registered_events.button"
+          >
+            <CalendarCheck className="h-4 w-4 shrink-0" />
+            Registered Events
+          </button>
+
+          {/* Profile */}
+          <button
+            type="button"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-primary/10 hover:text-primary text-foreground text-left"
+            onClick={() => goTo("/profile")}
+            data-ocid="header.profile.button"
+          >
+            <User className="h-4 w-4 shrink-0" />
+            Profile
+          </button>
+
+          {/* Settings */}
+          <button
+            type="button"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-primary/10 hover:text-primary text-foreground text-left"
+            onClick={() => goTo("/settings")}
+            data-ocid="header.settings.button"
+          >
+            <Settings className="h-4 w-4 shrink-0" />
+            Settings
+          </button>
+
+          {/* Campus Map */}
+          <button
+            type="button"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-primary/10 hover:text-primary text-foreground text-left"
+            onClick={() => toast.info("Campus Map - Coming soon!")}
+            data-ocid="header.campus_map.button"
+          >
+            <MapIcon className="h-4 w-4 shrink-0" />
+            Campus Map
+          </button>
+        </div>
+
+        {/* Footer */}
+        <div className="px-5 py-4 border-t border-border/60">
+          <p className="text-[10px] text-muted-foreground text-center">
+            D.Y. Patil College of Engineering and Technology
+          </p>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
 export function Header({
   unreadCount,
   onNotificationClick,
@@ -33,7 +259,10 @@ export function Header({
   const { language, setLanguage, t } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-30 h-14 flex items-center justify-between px-4 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header
+      className="sticky top-0 z-30 h-14 flex items-center justify-between px-4 bg-background"
+      style={{ boxShadow: "var(--neo-shadow-sm)" }}
+    >
       {/* Left - hamburger for mobile */}
       <div className="flex items-center gap-2">
         <Button
@@ -74,7 +303,7 @@ export function Header({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="bubble-card border-0 shadow-bubble-lg min-w-[130px]"
+            className="neo-card border-0 min-w-[130px]"
           >
             {languages.map((lang) => (
               <DropdownMenuItem
@@ -141,16 +370,8 @@ export function Header({
           )}
         </Button>
 
-        {/* Hamburger menu for desktop (extra options) */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-xl h-9 w-9 hidden lg:flex"
-          data-ocid="header.hamburger.button"
-          aria-label="More options"
-        >
-          <Menu className="h-4.5 w-4.5" />
-        </Button>
+        {/* Hamburger menu (three dashes) - desktop options sheet */}
+        <MenuSheet />
       </div>
     </header>
   );

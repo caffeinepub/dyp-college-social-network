@@ -25,7 +25,7 @@ export function PostCard({ post, clubs, index }: Props) {
 
   return (
     <Card
-      className="bubble-card border-0 overflow-hidden hover:shadow-bubble-lg transition-all duration-300 hover:-translate-y-0.5"
+      className="neo-card overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
       data-ocid={`home.posts.item.${index}`}
     >
       {post.imageUrl && (

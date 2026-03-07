@@ -37,10 +37,7 @@ export function HelpModal({ open, onClose }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent
-        className="bubble-card-lg border-0 max-w-md"
-        data-ocid="help.dialog"
-      >
+      <DialogContent className="neo-card-lg max-w-md" data-ocid="help.dialog">
         <DialogHeader>
           <DialogTitle className="font-display text-xl flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">

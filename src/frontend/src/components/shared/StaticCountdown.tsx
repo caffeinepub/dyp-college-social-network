@@ -31,7 +31,7 @@ interface StaticCountdownProps {
 export function StaticCountdown({
   dateMs,
   accentClass = "text-rose-600 dark:text-rose-400",
-  bgClass = "bg-rose-50 dark:bg-rose-950/40",
+  bgClass: _bgClass = "bg-rose-50 dark:bg-rose-950/40",
 }: StaticCountdownProps) {
   const [countdown, setCountdown] = useState<CountdownParts>(() =>
     getCountdownFromMs(dateMs),
@@ -48,7 +48,7 @@ export function StaticCountdown({
     return (
       <div
         data-ocid="event.countdown.panel"
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/60 w-fit"
+        className="neo-inset-sm flex items-center gap-1.5 px-3 py-1.5 w-fit"
       >
         <Clock className="h-3 w-3 text-muted-foreground shrink-0" />
         <span className="text-xs font-medium text-muted-foreground">
@@ -63,7 +63,7 @@ export function StaticCountdown({
   return (
     <div
       data-ocid="event.countdown.panel"
-      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full w-fit ${bgClass}`}
+      className="neo-inset-sm flex items-center gap-1.5 px-3 py-1.5 w-fit"
     >
       <Clock className={`h-3 w-3 shrink-0 ${accentClass}`} />
       <span className={`text-xs font-semibold tabular-nums ${accentClass}`}>

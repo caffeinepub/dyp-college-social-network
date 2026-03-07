@@ -55,7 +55,7 @@ export function CountdownTimer({ eventDateNano, compact = false }: Props) {
         { value: countdown.seconds, label: t("seconds"), unit: "seconds" },
       ].map(({ value, label, unit }) => (
         <div key={unit} className="flex flex-col items-center">
-          <div className="bubble-card px-2.5 py-1.5 min-w-[42px] text-center">
+          <div className="neo-inset-sm px-2.5 py-1.5 min-w-[42px] text-center">
             <span className="countdown-digit text-primary tabular-nums">
               {String(value).padStart(2, "0")}
             </span>

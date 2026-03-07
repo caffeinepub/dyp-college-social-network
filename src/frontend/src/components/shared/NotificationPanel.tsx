@@ -30,7 +30,7 @@ export function NotificationPanel({ open, onClose, notifications }: Props) {
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
       <SheetContent
         side="right"
-        className="w-[360px] sm:w-[400px] bubble-card-lg border-0 p-0"
+        className="w-[360px] sm:w-[400px] neo-card-lg p-0"
         data-ocid="notification.panel"
       >
         <SheetHeader className="px-5 py-4 border-b border-border/50">

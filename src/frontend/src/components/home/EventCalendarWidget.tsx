@@ -132,48 +132,23 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
 
   if (isLoading) {
     return (
-      <div className="p-[2px] rounded-3xl bg-gradient-to-br from-pink-300 via-rose-200 to-pink-400">
-        <div className="rounded-[22px] bg-background p-4 space-y-3">
-          <Skeleton className="h-5 w-32 rounded-full" />
-          <Skeleton className="h-56 w-full rounded-2xl" />
-          <Skeleton className="h-20 w-full rounded-2xl" />
-        </div>
+      <div className="neo-card p-3 space-y-2">
+        <Skeleton className="h-4 w-28 rounded-full" />
+        <Skeleton className="h-48 w-full rounded-xl" />
+        <Skeleton className="h-16 w-full rounded-xl" />
       </div>
     );
   }
 
   return (
-    <div
-      className="p-[2px] rounded-3xl bg-gradient-to-br from-pink-300 via-rose-200 to-pink-400 shadow-lg"
-      data-ocid="calendar.widget.panel"
-    >
-      <div className="relative rounded-[22px] bg-background overflow-hidden p-4 space-y-3">
-        {/* Decorative blurred circles */}
-        <div
-          className="absolute -top-8 -right-8 w-28 h-28 rounded-full pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(244,114,182,0.18), transparent 70%)",
-            filter: "blur(12px)",
-          }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(251,207,232,0.22), transparent 70%)",
-            filter: "blur(10px)",
-          }}
-          aria-hidden="true"
-        />
-
+    <div className="neo-card" data-ocid="calendar.widget.panel">
+      <div className="p-3 space-y-2">
         {/* Header */}
         <div className="relative z-10 flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center shadow-sm shrink-0">
-            <CalendarDays className="h-3 w-3 text-white" />
+          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-300 to-rose-300 flex items-center justify-center shadow-sm shrink-0">
+            <CalendarDays className="h-2.5 w-2.5 text-white" />
           </div>
-          <h3 className="font-display font-bold text-sm text-foreground">
+          <h3 className="font-display font-bold text-xs text-foreground">
             Event Calendar
           </h3>
           {events.length > 0 && (
@@ -189,7 +164,7 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
             mode="single"
             selected={selected}
             onSelect={setSelected}
-            className="w-full [--cell-size:--spacing(7)]"
+            className="w-full [--cell-size:--spacing(6)]"
             components={
               customComponents as React.ComponentProps<
                 typeof Calendar
@@ -202,15 +177,15 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
         {/* Selected Day Events */}
         <div className="relative z-10 space-y-2">
           <div className="flex items-center gap-1.5">
-            <div className="w-1 h-3 rounded-full bg-gradient-to-b from-pink-400 to-rose-400" />
-            <p className="text-[11px] font-semibold text-muted-foreground">
+            <div className="w-1 h-2.5 rounded-full bg-gradient-to-b from-pink-300 to-rose-300" />
+            <p className="text-[10px] font-semibold text-muted-foreground">
               {selectedLabel ? `Events on ${selectedLabel}` : "Select a day"}
             </p>
           </div>
 
           {dayEvents.length === 0 ? (
             <p
-              className="text-[11px] text-muted-foreground/60 italic px-2 py-2 bg-muted/30 rounded-xl"
+              className="text-[10px] text-muted-foreground/60 italic px-2 py-1 bg-muted/30 rounded-lg"
               data-ocid="calendar.day.empty_state"
             >
               No events on this day
@@ -232,7 +207,7 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
                 return (
                   <div
                     key={event.id.toString()}
-                    className="rounded-2xl bg-gradient-to-br from-pink-50/80 to-rose-50/60 dark:from-pink-950/20 dark:to-rose-950/15 border border-pink-100/80 dark:border-pink-900/30 p-2.5 space-y-1.5"
+                    className="neo-inset-sm p-2.5 space-y-1.5"
                     data-ocid={`calendar.event.item.${i + 1}`}
                   >
                     <div className="flex items-start justify-between gap-1">
@@ -300,7 +275,7 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
               {upcomingIn24h.map((event, i) => (
                 <div
                   key={event.id.toString()}
-                  className="rounded-2xl bg-gradient-to-br from-amber-50/80 to-orange-50/60 dark:from-amber-950/25 dark:to-orange-950/15 border border-amber-100/80 dark:border-amber-900/30 p-2.5 space-y-1"
+                  className="neo-inset-sm p-2.5 space-y-1"
                   data-ocid={`calendar.countdown.item.${i + 1}`}
                 >
                   <p className="font-semibold text-[11px] text-foreground line-clamp-1">

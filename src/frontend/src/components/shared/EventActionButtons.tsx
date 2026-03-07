@@ -26,9 +26,9 @@ export function EventActionButtons({
   return (
     <div className="flex items-center gap-2 pt-1 flex-wrap">
       <Button
-        variant="outline"
+        variant="ghost"
         size="sm"
-        className="h-7 gap-1.5 rounded-xl border-rose-300 text-rose-600 hover:bg-rose-50 hover:text-rose-700 dark:border-rose-700 dark:text-rose-300 dark:hover:bg-rose-950/40 font-medium text-[11px] px-2.5"
+        className="neo-button h-7 gap-1.5 rounded-xl text-rose-600 hover:text-rose-700 dark:text-rose-300 font-medium text-[11px] px-2.5"
         onClick={() => downloadStaticICS(title, description, dateMs)}
         data-ocid="event.add_calendar.button"
       >
@@ -37,9 +37,9 @@ export function EventActionButtons({
       </Button>
       {displayNotify && (
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
-          className="h-7 gap-1.5 rounded-xl border-pink-300 text-pink-600 hover:bg-pink-50 hover:text-pink-700 dark:border-pink-700 dark:text-pink-300 dark:hover:bg-pink-950/40 font-medium text-[11px] px-2.5"
+          className="neo-button h-7 gap-1.5 rounded-xl text-pink-600 hover:text-pink-700 dark:text-pink-300 font-medium text-[11px] px-2.5"
           onClick={() => scheduleNotification(title, dateMs)}
           data-ocid="event.notify_me.button"
         >

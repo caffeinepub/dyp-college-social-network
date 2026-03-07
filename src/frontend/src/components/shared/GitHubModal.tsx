@@ -49,7 +49,7 @@ export function GitHubModal({ open, onClose, projects }: Props) {
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent
-        className="bubble-card-lg border-0 max-w-lg max-h-[85vh] flex flex-col"
+        className="neo-card-lg max-w-lg max-h-[85vh] flex flex-col"
         data-ocid="github.modal"
       >
         <DialogHeader className="shrink-0">

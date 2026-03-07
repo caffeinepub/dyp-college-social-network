@@ -43,7 +43,7 @@ export function UpcomingEventsStrip({ events, clubs, isLoading }: Props) {
         </div>
       ) : events.length === 0 ? (
         <div
-          className="bubble-card p-6 text-center text-sm text-muted-foreground"
+          className="neo-card p-6 text-center text-sm text-muted-foreground"
           data-ocid="home.events.empty_state"
         >
           {t("noEvents")}
@@ -55,7 +55,7 @@ export function UpcomingEventsStrip({ events, clubs, isLoading }: Props) {
             return (
               <div
                 key={event.id.toString()}
-                className="bubble-card shrink-0 w-[300px] snap-start p-4 space-y-3 hover:shadow-bubble-lg transition-all duration-300"
+                className="neo-card shrink-0 w-[300px] snap-start p-4 space-y-3 transition-all duration-300"
                 data-ocid={`home.upcoming.item.${i + 1}`}
                 style={{
                   background:

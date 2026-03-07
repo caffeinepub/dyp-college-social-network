@@ -1,33 +1,58 @@
 # DYP College Social Network
 
 ## Current State
-- Bottom-right: A single `FloatingGitHubButton` that opens a student project showcase modal (`GitHubModal`).
-- Bottom-left: Two separate floating buttons -- `ComplaintBox` (pulsing circle, bottom-left ~`bottom-24 left-5`) and `LiveChat` (pulsing circle, bottom-right `bottom-5 right-5`). The ComplaintBox modal has two tabs: Complaint and Suggestion Box.
-- The Suggestion Box is currently a tab inside the ComplaintBox modal, not a standalone button.
+
+- Main page has 4 tabs: Home, Events, Clubs, Achievements
+- Header has a slide-in sheet (three dashes) with: Login/Logout, Dashboard (collapsed sub-items: Admin, Student, Teacher all say "Coming soon"), Registered Events (coming soon), Profile (coming soon), Settings (coming soon), Campus Map
+- No actual dashboard, profile, settings, or registered events pages exist -- all are toast placeholders
 
 ## Requested Changes (Diff)
 
 ### Add
-- A second GitHub button in the bottom-right area (stacked above the existing showcase button) that, when clicked, opens `https://github.com` in a new browser tab.
-- A new `FlowerMenu` floating button at the bottom-left corner. When pressed, it fans out 3 petal buttons in a flower/arc formation (upward-left arc from the main button):
-  1. Complaint button -- opens ComplaintBox modal (complaint tab)
-  2. Suggestion button -- opens ComplaintBox modal (suggestion tab)
-  3. Live Chat button -- opens LiveChat panel
-- Each petal button has a distinct icon and label.
+
+1. **Three full dashboard pages** accessible from the menu sheet:
+   - Admin Dashboard: overview stats (total students, events, clubs, posts), recent posts table, event management view, user management section
+   - Student Dashboard: personal stats (events joined, clubs joined, badges earned), upcoming registered events, activity feed, quick actions
+   - Teacher Dashboard: department announcements, student queries from Faculty Ask Doubt form, course/department events, faculty directory
+
+2. **Registered Events page**: list of events the logged-in student has registered for, showing Event Name, Date, Countdown/Status, Add to Calendar button. Mock data for a sample student.
+
+3. **Settings page** with sections:
+   - Password Change (current password, new password, confirm)
+   - Events & Calendar Settings: default event reminder (1 hour before, 1 day before, 1 week before, custom), toggle for "Enable/Disable Add to Calendar automatically"
+   - Privacy & Visibility: "Show my activity on feed" toggle, "Allow comments on my posts" toggle, "Allow tagging in posts" toggle
+
+4. **Profile page** (accessible from menu) -- editable profile:
+   - Cover Photo banner (editable)
+   - Profile Picture (editable)
+   - Full Name, Role (Student/Faculty/Club Member/Admin dropdown), Branch/Department (CSE, Mechanical, etc.), Year (FY/SY/TY/BTech/MTech), Short Bio
+   - Events Participated: list with Event Name, Date, Countdown/Status, Add to Calendar
+   - GitHub Projects: GitHub profile link, list of submitted repos with project description and tech stack
+   - Clubs/Communities Joined: display clubs user follows
+   - Badges/Recognition gamification: Event Enthusiast, Hackathon Participant, Club Leader, Top Contributor
+
+5. **Profile tab on main page** -- add "Profile" as a 5th main tab next to Achievements, with the same profile content as above
 
 ### Modify
-- `FloatingGitHubButton`: Add a second button stacked above the current one that links directly to https://github.com (new tab). Keep the existing showcase button exactly as-is.
-- `ComplaintBox`: Remove the standalone floating button (it will now be triggered from the FlowerMenu). Export the Dialog-only version so FlowerMenu can control `open` and `defaultTab`.
-- `LiveChat`: Remove the standalone floating toggle button (it will now be triggered from the FlowerMenu). Export a version that accepts an `open` prop controlled externally.
-- `App.tsx`: Remove direct usage of `<ComplaintBox />` and `<LiveChat />`. Replace with `<FlowerMenu />` which internally manages all three.
+
+- Header MenuSheet: clicking Admin Dashboard, Student Dashboard, Teacher Dashboard navigates to dedicated pages (sets a route/view) instead of showing a toast
+- Registered Events menu item: navigates to the registered events page
+- Profile menu item: navigates to the profile page
+- Settings menu item: navigates to the settings page
+- App.tsx: add routing for dashboard views, registered events, profile, and settings pages
 
 ### Remove
-- The standalone pulsing circle button inside `ComplaintBox` component.
-- The standalone pulsing circle toggle button inside `LiveChat` component.
+
+- "Coming soon" toasts from Dashboard sub-items, Registered Events, Profile, Settings
 
 ## Implementation Plan
-1. Update `FloatingGitHubButton.tsx` to render two stacked buttons: a new "Visit GitHub.com" link button on top, and the existing showcase modal button below.
-2. Refactor `ComplaintBox.tsx`: remove the floating trigger button, add `open`, `onClose`, and `defaultTab` props so the dialog can be controlled externally.
-3. Refactor `LiveChat.tsx`: remove the floating toggle button, accept `open` and `onClose` props for external control.
-4. Create `FlowerMenu.tsx`: a single main button at `bottom-6 left-6` that on click toggles expanded state, animating 3 petal buttons in a flower/fan arc pattern. Each petal controls opening the appropriate modal/panel.
-5. Update `App.tsx` (or `HomePage.tsx`): remove `<ComplaintBox />` and `<LiveChat />`, add `<FlowerMenu />`.
+
+1. Create `src/frontend/src/pages/AdminDashboardPage.tsx` with admin stats, post overview, event list, user management
+2. Create `src/frontend/src/pages/StudentDashboardPage.tsx` with student stats, registered events preview, activity, badges
+3. Create `src/frontend/src/pages/TeacherDashboardPage.tsx` with teacher-focused view
+4. Create `src/frontend/src/pages/RegisteredEventsPage.tsx` with mock registered event list
+5. Create `src/frontend/src/pages/SettingsPage.tsx` with password, calendar, privacy sections
+6. Create `src/frontend/src/pages/ProfilePage.tsx` with editable profile, events participated, GitHub projects, clubs, badges
+7. Modify `HomePage.tsx`: add "profile" to MainTab type and render ProfilePage inside the 5th tab
+8. Modify `Header.tsx`: update MenuSheet navigation to push routes instead of showing toasts
+9. Modify `App.tsx`: add route handling for /dashboard/admin, /dashboard/student, /dashboard/teacher, /registered-events, /profile, /settings

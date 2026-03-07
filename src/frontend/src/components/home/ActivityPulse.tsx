@@ -30,7 +30,7 @@ export function ActivityPulse({ entries, clubs, isLoading }: Props) {
 
   return (
     <div
-      className="bubble-card-lg p-4 space-y-3 h-full"
+      className="neo-card-lg p-4 space-y-3 h-full"
       data-ocid="activity.pulse.panel"
     >
       {/* Header */}

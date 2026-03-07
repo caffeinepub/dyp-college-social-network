@@ -110,7 +110,7 @@ export function ClubPage({ slug, subteamSlug, onNavigate }: Props) {
           <Skeleton className="h-6 w-40 rounded-xl" />
         </div>
       ) : !club ? (
-        <div className="bubble-card p-10 text-center">
+        <div className="neo-card p-10 text-center">
           <p className="text-muted-foreground">Club not found</p>
         </div>
       ) : (
@@ -170,7 +170,7 @@ export function ClubPage({ slug, subteamSlug, onNavigate }: Props) {
               </div>
             ) : posts.length === 0 ? (
               <div
-                className="bubble-card p-10 text-center text-sm text-muted-foreground"
+                className="neo-card p-10 text-center text-sm text-muted-foreground"
                 data-ocid="club.posts.empty_state"
               >
                 {t("noPosts")}
