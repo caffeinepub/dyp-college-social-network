@@ -16,9 +16,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"Nunito"', '"Plus Jakarta Sans"', '"Sora"', "system-ui", "sans-serif"],
-        display: ['"Nunito"', '"Cabinet Grotesk"', '"Plus Jakarta Sans"', "system-ui", "sans-serif"],
-        mono: ['"Geist Mono"', "monospace"],
+        sans: ['"Nunito"', '"Segoe UI"', "system-ui", "-apple-system", "sans-serif"],
+        display: ['"Nunito"', '"Segoe UI"', "system-ui", "-apple-system", "sans-serif"],
+        mono: ["ui-monospace", '"Cascadia Code"', '"Segoe UI Mono"', '"Roboto Mono"', "monospace"],
       },
       colors: {
         border: "oklch(var(--border))",

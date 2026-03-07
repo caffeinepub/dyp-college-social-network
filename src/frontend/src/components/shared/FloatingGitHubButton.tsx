@@ -26,7 +26,7 @@ export function FloatingGitHubButton() {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm transition-all duration-200 hover:scale-105 opacity-60 hover:opacity-100"
+                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-all duration-200 hover:scale-105 opacity-90 hover:opacity-100 github-float-1"
                 style={{ background: "var(--gradient-primary)" }}
                 data-ocid="github.visit-website.button"
                 aria-label="Visit GitHub.com"
@@ -47,7 +47,7 @@ export function FloatingGitHubButton() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm transition-all duration-200 hover:scale-105 opacity-60 hover:opacity-100 relative"
+                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-all duration-200 hover:scale-105 opacity-90 hover:opacity-100 relative github-float-2"
                 style={{ background: "var(--gradient-primary)" }}
                 data-ocid="github.open_modal_button"
                 aria-label={t("githubShowcase")}

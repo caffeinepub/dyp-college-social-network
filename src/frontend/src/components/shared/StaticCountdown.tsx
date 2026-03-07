@@ -30,8 +30,8 @@ interface StaticCountdownProps {
 
 export function StaticCountdown({
   dateMs,
-  accentClass = "text-rose-600 dark:text-rose-400",
-  bgClass: _bgClass = "bg-rose-50 dark:bg-rose-950/40",
+  accentClass = "text-blue-600 dark:text-blue-400",
+  bgClass: _bgClass = "bg-blue-50 dark:bg-blue-950/40",
 }: StaticCountdownProps) {
   const [countdown, setCountdown] = useState<CountdownParts>(() =>
     getCountdownFromMs(dateMs),

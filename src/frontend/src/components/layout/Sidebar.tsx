@@ -2,7 +2,7 @@ import type { Club, Post } from "@/backend";
 import { EventCalendarWidget } from "@/components/home/EventCalendarWidget";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
-import { Home } from "lucide-react";
+import { Home, User } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 interface Props {
@@ -75,6 +75,20 @@ export function Sidebar({
         >
           <Home className="h-4 w-4 shrink-0" />
           {t("home")}
+        </button>
+
+        {/* Profile */}
+        <button
+          type="button"
+          onClick={() => handleNav("/profile")}
+          className={cn(
+            "sidebar-link w-full",
+            currentPath === "/profile" ? "active" : "",
+          )}
+          data-ocid="nav.profile.link"
+        >
+          <User className="h-4 w-4 shrink-0" />
+          Profile
         </button>
 
         {/* Event Calendar Widget */}

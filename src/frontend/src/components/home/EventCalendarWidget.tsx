@@ -118,7 +118,7 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
               <span
                 className={[
                   "absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full",
-                  isSelected ? "bg-primary-foreground/80" : "bg-pink-500",
+                  isSelected ? "bg-primary-foreground/80" : "bg-blue-500",
                 ].join(" ")}
                 aria-hidden="true"
               />
@@ -145,7 +145,7 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
       <div className="p-3 space-y-2">
         {/* Header */}
         <div className="relative z-10 flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-300 to-rose-300 flex items-center justify-center shadow-sm shrink-0">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-blue-300 to-blue-500 flex items-center justify-center shadow-sm shrink-0">
             <CalendarDays className="h-2.5 w-2.5 text-white" />
           </div>
           <h3 className="font-display font-bold text-xs text-foreground">
@@ -177,7 +177,7 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
         {/* Selected Day Events */}
         <div className="relative z-10 space-y-2">
           <div className="flex items-center gap-1.5">
-            <div className="w-1 h-2.5 rounded-full bg-gradient-to-b from-pink-300 to-rose-300" />
+            <div className="w-1 h-2.5 rounded-full bg-gradient-to-b from-blue-300 to-blue-500" />
             <p className="text-[10px] font-semibold text-muted-foreground">
               {selectedLabel ? `Events on ${selectedLabel}` : "Select a day"}
             </p>
@@ -239,7 +239,7 @@ export function EventCalendarWidget({ events, clubs, isLoading }: Props) {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full h-7 gap-1 rounded-xl text-[10px] font-medium border-pink-200/80 text-primary hover:bg-pink-50 dark:border-pink-800/50 dark:hover:bg-pink-950/30 px-2"
+                      className="w-full h-7 gap-1 rounded-xl text-[10px] font-medium border-blue-200/80 text-primary hover:bg-blue-50 dark:border-blue-800/50 dark:hover:bg-blue-950/30 px-2"
                       onClick={() => downloadICS(event)}
                       data-ocid={`calendar.event.add_calendar.button.${i + 1}`}
                     >

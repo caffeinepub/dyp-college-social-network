@@ -8,9 +8,9 @@ import Text "mo:core/Text";
 import Time "mo:core/Time";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
-import Migration "migration";
 
-(with migration = Migration.run)
+
+
 actor {
   // Types
   public type PostCategory = {

@@ -28,7 +28,7 @@ export function EventActionButtons({
       <Button
         variant="ghost"
         size="sm"
-        className="neo-button h-7 gap-1.5 rounded-xl text-rose-600 hover:text-rose-700 dark:text-rose-300 font-medium text-[11px] px-2.5"
+        className="neo-button h-7 gap-1.5 rounded-xl text-blue-600 hover:text-blue-700 dark:text-blue-300 font-medium text-[11px] px-2.5"
         onClick={() => downloadStaticICS(title, description, dateMs)}
         data-ocid="event.add_calendar.button"
       >
@@ -39,7 +39,7 @@ export function EventActionButtons({
         <Button
           variant="ghost"
           size="sm"
-          className="neo-button h-7 gap-1.5 rounded-xl text-pink-600 hover:text-pink-700 dark:text-pink-300 font-medium text-[11px] px-2.5"
+          className="neo-button h-7 gap-1.5 rounded-xl text-indigo-600 hover:text-indigo-700 dark:text-indigo-300 font-medium text-[11px] px-2.5"
           onClick={() => scheduleNotification(title, dateMs)}
           data-ocid="event.notify_me.button"
         >

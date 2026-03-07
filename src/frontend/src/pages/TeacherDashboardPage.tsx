@@ -481,7 +481,7 @@ export function TeacherDashboardPage() {
               {profile.email && (
                 <a
                   href={`mailto:${profile.email}`}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-pink-50 text-pink-700 border border-pink-200 hover:bg-pink-100 transition-colors dark:bg-pink-950/40 dark:text-pink-400 dark:border-pink-700"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-700"
                 >
                   <Mail className="h-3 w-3" />
                   {profile.email}

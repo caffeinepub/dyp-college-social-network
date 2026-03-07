@@ -8,8 +8,8 @@ interface FlowerMenuProps {
   isDark?: boolean;
 }
 
-const PINK_GRADIENT = "linear-gradient(135deg, #f472b6 0%, #db2777 100%)";
-const PINK_PRIMARY = "#db2777";
+const PINK_GRADIENT = "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)";
+const PINK_PRIMARY = "#2563eb";
 
 const PETALS = [
   {

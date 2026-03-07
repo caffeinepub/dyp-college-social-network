@@ -13,11 +13,11 @@ interface Props {
 
 const categoryColors: Record<PostCategory, string> = {
   [PostCategory.Event]:
-    "bg-pink-100 text-pink-800 dark:bg-pink-900/40 dark:text-pink-200",
+    "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200",
   [PostCategory.Announcement]:
-    "bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200",
+    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200",
   [PostCategory.Update]:
-    "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900/40 dark:text-fuchsia-200",
+    "bg-slate-100 text-slate-800 dark:bg-slate-900/40 dark:text-slate-200",
 };
 
 export function PostCard({ post, clubs, index }: Props) {

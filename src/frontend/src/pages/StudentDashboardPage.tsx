@@ -23,17 +23,17 @@ const STATS = [
     label: "Events Registered",
     value: "3",
     icon: <CalendarDays className="h-5 w-5" />,
-    color: "text-pink-600 dark:text-pink-400",
-    bg: "bg-pink-50 dark:bg-pink-950/40",
-    border: "border-pink-200 dark:border-pink-800",
+    color: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-50 dark:bg-blue-950/40",
+    border: "border-blue-200 dark:border-blue-800",
   },
   {
     label: "Clubs Joined",
     value: "2",
     icon: <User className="h-5 w-5" />,
-    color: "text-rose-600 dark:text-rose-400",
-    bg: "bg-rose-50 dark:bg-rose-950/40",
-    border: "border-rose-200 dark:border-rose-800",
+    color: "text-indigo-600 dark:text-indigo-400",
+    bg: "bg-indigo-50 dark:bg-indigo-950/40",
+    border: "border-indigo-200 dark:border-indigo-800",
   },
   {
     label: "Badges Earned",
@@ -67,8 +67,8 @@ const MY_EVENTS = [
     date: "20 Mar 2026",
     dateMs: new Date("2026-03-20").getTime(),
     description: "National Level Technical Fest at DYPCET",
-    statusColor: "text-rose-600 dark:text-rose-400",
-    bgColor: "bg-rose-50 dark:bg-rose-950/40",
+    statusColor: "text-indigo-600 dark:text-indigo-400",
+    bgColor: "bg-indigo-50 dark:bg-indigo-950/40",
   },
   {
     name: "Cultural Fest / ECHO Got Talent",
@@ -110,7 +110,7 @@ const ACTIVITY = [
   {
     text: "Submitted GitHub project to showcase",
     time: "3 weeks ago",
-    dot: "bg-pink-400",
+    dot: "bg-blue-400",
   },
 ];
 
@@ -162,8 +162,8 @@ export function StudentDashboardPage() {
         transition={{ duration: 0.3 }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl flex items-center justify-center bg-pink-100 dark:bg-pink-950/50">
-            <User className="h-5 w-5 text-pink-600 dark:text-pink-400" />
+          <div className="w-10 h-10 rounded-2xl flex items-center justify-center bg-blue-100 dark:bg-blue-950/50">
+            <User className="h-5 w-5 text-blue-600 dark:text-blue-400" />
           </div>
           <div>
             <h1 className="font-display font-bold text-xl text-foreground">
@@ -176,7 +176,7 @@ export function StudentDashboardPage() {
         </div>
         <Badge
           variant="outline"
-          className="text-[11px] border-pink-300 text-pink-600 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-400 dark:border-pink-700 font-semibold"
+          className="text-[11px] border-blue-300 text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-700 font-semibold"
         >
           SY - CSE
         </Badge>

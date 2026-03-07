@@ -77,9 +77,9 @@ const ROLE_LABEL: Record<string, string> = {
 const ROLE_COLOR: Record<string, { text: string; bg: string; border: string }> =
   {
     student: {
-      text: "text-pink-700 dark:text-pink-400",
-      bg: "bg-pink-50 dark:bg-pink-950/40",
-      border: "border-pink-300 dark:border-pink-700",
+      text: "text-blue-700 dark:text-blue-400",
+      bg: "bg-blue-50 dark:bg-blue-950/40",
+      border: "border-blue-300 dark:border-blue-700",
     },
     teacher: {
       text: "text-amber-700 dark:text-amber-400",
@@ -87,9 +87,9 @@ const ROLE_COLOR: Record<string, { text: string; bg: string; border: string }> =
       border: "border-amber-300 dark:border-amber-700",
     },
     admin: {
-      text: "text-rose-700 dark:text-rose-400",
-      bg: "bg-rose-50 dark:bg-rose-950/40",
-      border: "border-rose-300 dark:border-rose-700",
+      text: "text-slate-700 dark:text-slate-300",
+      bg: "bg-slate-100 dark:bg-slate-800/40",
+      border: "border-slate-300 dark:border-slate-600",
     },
   };
 
@@ -147,7 +147,7 @@ function MenuSheet({
               className="w-10 h-10 rounded-2xl flex items-center justify-center shadow-md"
               style={{
                 background:
-                  "linear-gradient(135deg, #f472b6, #ec4899, #be185d)",
+                  "linear-gradient(135deg, #3b82f6, #2563eb, #1d4ed8)",
               }}
             >
               <GraduationCap className="h-5 w-5 text-white" />
@@ -193,30 +193,6 @@ function MenuSheet({
 
         {/* Menu items */}
         <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
-          {/* Login / Logout */}
-          <button
-            type="button"
-            className={cn(
-              "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left",
-              "hover:bg-primary/10 hover:text-primary",
-              auth.role
-                ? "text-rose-600 dark:text-rose-400"
-                : "text-foreground",
-            )}
-            onClick={auth.role ? handleLogout : handleLogin}
-            data-ocid="header.login.button"
-          >
-            {auth.role ? (
-              <LogOut className="h-4 w-4 shrink-0" />
-            ) : (
-              <LogIn className="h-4 w-4 shrink-0" />
-            )}
-            <span>{auth.role ? "Logout" : "Login"}</span>
-          </button>
-
-          {/* Separator */}
-          <div className="my-2 h-px bg-border/60" />
-
           {/* Dashboard - collapsible sub-options */}
           <Collapsible open={dashboardOpen} onOpenChange={setDashboardOpen}>
             <CollapsibleTrigger asChild>
@@ -238,7 +214,7 @@ function MenuSheet({
             <CollapsibleContent className="pl-4 mt-1 space-y-0.5">
               <button
                 type="button"
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/30 dark:hover:text-rose-400 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-slate-50 hover:text-slate-700 dark:hover:bg-slate-800/30 dark:hover:text-slate-300 transition-colors text-left"
                 onClick={() => goTo("/dashboard/admin")}
                 data-ocid="header.dashboard.admin.button"
               >
@@ -247,7 +223,7 @@ function MenuSheet({
               </button>
               <button
                 type="button"
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-pink-50 hover:text-pink-600 dark:hover:bg-pink-950/30 dark:hover:text-pink-400 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/30 dark:hover:text-blue-400 transition-colors text-left"
                 onClick={() => goTo("/dashboard/student")}
                 data-ocid="header.dashboard.student.button"
               >
@@ -277,17 +253,6 @@ function MenuSheet({
             Registered Events
           </button>
 
-          {/* Profile */}
-          <button
-            type="button"
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-primary/10 hover:text-primary text-foreground text-left"
-            onClick={() => goTo("/profile")}
-            data-ocid="header.profile.button"
-          >
-            <User className="h-4 w-4 shrink-0" />
-            Profile
-          </button>
-
           {/* Settings */}
           <button
             type="button"
@@ -303,11 +268,40 @@ function MenuSheet({
           <button
             type="button"
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-primary/10 hover:text-primary text-foreground text-left"
-            onClick={() => toast.info("Campus Map - Coming soon!")}
+            onClick={() =>
+              window.open(
+                "https://dulcet-kitten-48beb2.netlify.app/",
+                "_blank",
+                "noopener,noreferrer",
+              )
+            }
             data-ocid="header.campus_map.button"
           >
             <MapIcon className="h-4 w-4 shrink-0" />
             Campus Map
+          </button>
+
+          {/* Separator */}
+          <div className="my-2 h-px bg-border/60" />
+
+          {/* Login / Logout - always at the very bottom */}
+          <button
+            type="button"
+            className={cn(
+              "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left",
+              auth.role
+                ? "text-destructive dark:text-red-400 hover:bg-destructive/10 dark:hover:bg-red-950/30"
+                : "text-foreground hover:bg-primary/10 hover:text-primary",
+            )}
+            onClick={auth.role ? handleLogout : handleLogin}
+            data-ocid="header.login.button"
+          >
+            {auth.role ? (
+              <LogOut className="h-4 w-4 shrink-0" />
+            ) : (
+              <LogIn className="h-4 w-4 shrink-0" />
+            )}
+            <span>{auth.role ? "Logout" : "Login"}</span>
           </button>
         </div>
 

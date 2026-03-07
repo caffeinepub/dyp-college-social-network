@@ -30,17 +30,17 @@ const STATS = [
     label: "Total Students",
     value: "1,240",
     icon: <Users className="h-5 w-5" />,
-    color: "text-rose-600 dark:text-rose-400",
-    bg: "bg-rose-50 dark:bg-rose-950/40",
-    border: "border-rose-200 dark:border-rose-800",
+    color: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-50 dark:bg-blue-950/40",
+    border: "border-blue-200 dark:border-blue-800",
   },
   {
     label: "Active Events",
     value: "8",
     icon: <CalendarDays className="h-5 w-5" />,
-    color: "text-pink-600 dark:text-pink-400",
-    bg: "bg-pink-50 dark:bg-pink-950/40",
-    border: "border-pink-200 dark:border-pink-800",
+    color: "text-indigo-600 dark:text-indigo-400",
+    bg: "bg-indigo-50 dark:bg-indigo-950/40",
+    border: "border-indigo-200 dark:border-indigo-800",
   },
   {
     label: "Clubs",
@@ -207,8 +207,8 @@ export function AdminDashboardPage() {
         transition={{ duration: 0.3 }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl flex items-center justify-center bg-rose-100 dark:bg-rose-950/50">
-            <ShieldCheck className="h-5 w-5 text-rose-600 dark:text-rose-400" />
+          <div className="w-10 h-10 rounded-2xl flex items-center justify-center bg-slate-100 dark:bg-slate-800/50">
+            <ShieldCheck className="h-5 w-5 text-slate-600 dark:text-slate-400" />
           </div>
           <div>
             <h1 className="font-display font-bold text-xl text-foreground">
@@ -221,7 +221,7 @@ export function AdminDashboardPage() {
         </div>
         <Badge
           variant="outline"
-          className="text-[11px] border-rose-300 text-rose-600 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-700 font-semibold"
+          className="text-[11px] border-slate-300 text-slate-600 bg-slate-50 dark:bg-slate-800/40 dark:text-slate-400 dark:border-slate-600 font-semibold"
         >
           Admin Access
         </Badge>
@@ -264,7 +264,7 @@ export function AdminDashboardPage() {
       >
         <Button
           size="sm"
-          className="rounded-xl gap-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs"
+          className="rounded-xl gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs"
           data-ocid="admin.create_announcement.button"
         >
           <Megaphone className="h-3.5 w-3.5" />
@@ -272,7 +272,7 @@ export function AdminDashboardPage() {
         </Button>
         <Button
           size="sm"
-          className="rounded-xl gap-1.5 bg-pink-600 hover:bg-pink-700 text-white text-xs"
+          className="rounded-xl gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs"
           data-ocid="admin.add_event.button"
         >
           <Plus className="h-3.5 w-3.5" />
@@ -281,7 +281,7 @@ export function AdminDashboardPage() {
         <Button
           size="sm"
           variant="outline"
-          className="rounded-xl gap-1.5 border-rose-200 text-rose-700 hover:bg-rose-50 dark:border-rose-800 dark:text-rose-400 dark:hover:bg-rose-950/30 text-xs"
+          className="rounded-xl gap-1.5 border-slate-200 text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-400 dark:hover:bg-slate-800/30 text-xs"
           data-ocid="admin.manage_clubs.button"
         >
           <Settings className="h-3.5 w-3.5" />
@@ -351,7 +351,7 @@ export function AdminDashboardPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7 rounded-lg hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/30"
+                      className="h-7 w-7 rounded-lg hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/30"
                       data-ocid={`admin.posts.edit_button.${i + 1}`}
                     >
                       <Edit2 className="h-3 w-3" />
@@ -404,7 +404,7 @@ export function AdminDashboardPage() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-6 w-6 rounded-lg hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/30"
+                  className="h-6 w-6 rounded-lg hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/30"
                   data-ocid={`admin.events.edit_button.${i + 1}`}
                 >
                   <Edit2 className="h-3 w-3" />

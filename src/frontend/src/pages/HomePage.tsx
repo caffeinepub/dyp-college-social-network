@@ -155,8 +155,8 @@ const ACHIEVEMENTS: AchievementEntry[] = [
     title: "Cultural Excellence Award",
     team: "Official Theatre",
     date: "Jan 2026",
-    gradientFrom: "from-pink-400",
-    gradientTo: "to-rose-400",
+    gradientFrom: "from-blue-400",
+    gradientTo: "to-indigo-400",
     icon: <Star className="h-5 w-5 text-white" />,
   },
   {
@@ -490,7 +490,7 @@ export function HomePage({ onNavigate }: Props) {
                           <div className="flex items-center gap-2 flex-wrap">
                             <Badge
                               variant="outline"
-                              className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-rose-300 text-rose-600 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-700"
+                              className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-blue-300 text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-700"
                             >
                               National Level Technical Fest
                             </Badge>
@@ -508,15 +508,15 @@ export function HomePage({ onNavigate }: Props) {
                               Activities Include
                             </p>
                             <div className="flex flex-wrap gap-1.5">
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
                                 <Code2 className="h-3 w-3" />
                                 Coding Competitions
                               </span>
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
                                 <Bot className="h-3 w-3" />
                                 Robotics Events
                               </span>
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-900/40 dark:text-fuchsia-300">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300">
                                 <FlaskConical className="h-3 w-3" />
                                 Project Exhibitions
                               </span>
@@ -524,8 +524,8 @@ export function HomePage({ onNavigate }: Props) {
                           </div>
                           <StaticCountdown
                             dateMs={new Date("2026-03-20").getTime()}
-                            accentClass="text-rose-600 dark:text-rose-400"
-                            bgClass="bg-rose-50 dark:bg-rose-950/40"
+                            accentClass="text-blue-600 dark:text-blue-400"
+                            bgClass="bg-blue-50 dark:bg-blue-950/40"
                           />
                           <EventActionButtons
                             title="TECHNOTSAV 2K25 - Cosmos of Innovation"
@@ -685,7 +685,7 @@ export function HomePage({ onNavigate }: Props) {
                           <div className="flex items-center gap-2 flex-wrap">
                             <Badge
                               variant="outline"
-                              className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-pink-300 text-pink-600 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-300 dark:border-pink-700"
+                              className="text-[10px] font-semibold rounded-full px-2.5 py-0.5 border-sky-300 text-sky-600 bg-sky-50 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-700"
                             >
                               Annual College Event
                             </Badge>
@@ -701,11 +701,11 @@ export function HomePage({ onNavigate }: Props) {
                           </p>
                           <div className="mt-auto pt-1">
                             <div className="flex flex-wrap gap-1.5">
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300">
                                 <Users className="h-3 w-3" />
                                 Community Celebration
                               </span>
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 dark:bg-slate-900/40 dark:text-slate-300">
                                 <CalendarDays className="h-3 w-3" />
                                 Annual Event
                               </span>
@@ -713,8 +713,8 @@ export function HomePage({ onNavigate }: Props) {
                           </div>
                           <StaticCountdown
                             dateMs={new Date("2026-04-05").getTime()}
-                            accentClass="text-pink-600 dark:text-pink-400"
-                            bgClass="bg-pink-50 dark:bg-pink-950/40"
+                            accentClass="text-sky-600 dark:text-sky-400"
+                            bgClass="bg-sky-50 dark:bg-sky-950/40"
                           />
                           <EventActionButtons
                             title="ARPAN Annual Gathering"
@@ -980,7 +980,7 @@ export function HomePage({ onNavigate }: Props) {
                                 <CalendarDays className="h-3 w-3" />
                                 07 March 2026
                               </span>
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
                                 <Megaphone className="h-3 w-3" />
                                 Cultural Fest
                               </span>

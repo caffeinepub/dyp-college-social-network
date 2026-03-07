@@ -1,45 +1,41 @@
 # DYP College Social Network
 
 ## Current State
-- Login page with role picker (student/teacher/admin), email/password fields, demo credentials box, and login button
-- Demo email for student is `student@dypcet.ac.in`
-- Color theme is pastel pink with some neomorphism shadows already applied via CSS variables
-- Login page layout: logo, role picker, email, password, login button, demo credentials hint
-- Main app has full-featured pages: HomePage, ClubPage, ProfilePage, DashboardPage, etc.
-- Background colors are pastel pink hues (oklch around 340-350 hue)
-- Fonts: Plus Jakarta Sans (body), Cabinet Grotesk (headings), Sora (fallback)
+- Login page with role picker (student/teacher/admin), email/password, demo credentials, and a login button. No "create account" or social sign-in options.
+- White/off-white neomorphism theme already applied, but pink color references remain in CSS variables (--primary, --gradient-primary), LoginPage gradients, Header role badges, and MenuSheet branding icon.
+- Left sidebar has: college branding header, Home button, EventCalendarWidget. No profile link.
+- Right menu (Header MenuSheet) has: Dashboard, Registered Events, Profile, Settings, Campus Map, Login/Logout.
+- FloatingGitHubButton: two small semi-transparent buttons (opacity-60) with no motion animation.
+- Neomorphism applied to cards/buttons but could be stronger on interactive surfaces.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Google Fonts import: Nunito (elegant, rounded, professional) as an additional font option for the neomorphic theme
-- Database-backed user registration: update backend UserProfile to store richer data (email, role, branch, year, bio) so the site has a persistent user database
-- White/off-white CSS token overrides so the neomorphism shadows render on a white/cream background instead of pink-tinted background
+- **Create Account flow**: A "Create Account" tab/option on the login page. Form with full name, email (format student@gmail.com), password, confirm password, role selector, and a "Sign Up" button.
+- **Sign in with Google**: A "Continue with Google" button on the login page (UI only, simulated auth).
+- **Sign in with Mobile Number**: A "Continue with Mobile Number" option (OTP flow UI, simulated).
+- **Profile button in left sidebar**: Between the Home button and the EventCalendarWidget, add a Profile nav button that navigates to /profile.
+- **GitHub buttons moving animation**: Add a gentle floating/bobbing keyframe animation to the two GitHub buttons in FloatingGitHubButton.
 
 ### Modify
-- **Login page email format**: Change student demo email from `student@dypcet.ac.in` to `student@gmail.com`. Teacher demo email stays, admin stays. Update placeholder and DEMO credentials accordingly.
-- **Login page layout order**: Move the login button to the BOTTOM of the form -- after the demo credentials hint. So the order becomes: logo, role picker, email, password, demo credentials hint, fill-demo button, login button.
-- **Global color palette (index.css `:root`)**: Shift background, card, sidebar, popover tokens to white and off-white (no pink tint in light mode). Specifically:
-  - `--background`: pure off-white (oklch ~0.985 0.004 90) -- creamy white
-  - `--card`: white (oklch ~0.995 0.002 90)
-  - `--sidebar`: near-white (oklch ~0.982 0.004 90)
-  - `--popover`: white
-  - Neomorphic shadow colors: update to use warm gray/neutral tones for light shadows and white for bright highlights so shadows are visible on the white background
-  - Pastel accent colors (primary, ring) stay softly pink-rose but lighter
-- **Neomorphism**: Ensure `--neo-shadow` and `--neo-shadow-*` use neutral warm tones (#d1cbc8 dark shadow, #ffffff bright highlight) suitable for white surfaces
-- **Typography**: Add Nunito from Google Fonts CDN in `index.html` (or via @import in index.css) as display/heading font alternative for a softer neomorphic feel
+- **Remove all pink**: Replace all pink/rose color references with neutral blue-gray or warm-white accents. Specifically:
+  - CSS: --primary, --gradient-primary, --gradient-hero, --ring, sidebar-primary should shift from pink (hue ~350) to a neutral blue-gray or warm neutral (e.g., slate/stone: hue ~220-240 or warm gray).
+  - Dark mode: same -- remove pink/rose hues, use neutral-dark palette.
+  - LoginPage: remove pink gradients on logo icon and login button; role card active states that use pink should shift to neutral blue-toned colors.
+  - Header: ROLE_COLOR for student (pink) -> blue; admin (rose) -> slate; teacher stays amber. Role badge and MenuSheet icon gradient should also be non-pink.
+  - Any inline `bg-pink-*`, `text-pink-*`, `border-pink-*`, `bg-rose-*`, `text-rose-*`, etc. across all components should be replaced with neutral equivalents (blue/slate/stone).
+- **Stronger neomorphism**: Increase shadow depth and intensity on neo-card, neo-card-lg, neo-shadow tokens. Add neo-shadow to more interactive surfaces (sidebar profile button, calendar widget container).
+- **GitHub buttons more opaque with motion**: Change opacity from 60% resting to 90%+ and add a gentle vertical float animation (CSS keyframes already exist, use float-slow or similar). Make the buttons slightly larger (11-12px icon, w-10 h-10).
+- **Remove Profile from right menu**: Remove the "Profile" button from the Header MenuSheet menu items list.
 
 ### Remove
-- Nothing removed
+- Pink color tokens and pink inline Tailwind classes across the full app (systematic replacement).
+- Profile menu item from the Header right-side sheet.
 
 ## Implementation Plan
-1. Update `src/frontend/index.html` to add Google Fonts import for Nunito
-2. Update `src/frontend/index.css`:
-   - `:root` background/card/sidebar tokens to white and off-white (OKLCH values)
-   - Neomorphic shadow CSS variables to neutral warm-gray shadows suitable for white background
-   - Add Nunito to font stacks
-3. Update `src/frontend/tailwind.config.js`: add Nunito to fontFamily
-4. Update `src/frontend/src/pages/LoginPage.tsx`:
-   - Change student demo email to `student@gmail.com`
-   - Reorder the JSX: move login button after demo credentials box
-5. Backend `UserProfile` already has basic `name` field; enhance it to store email + role + branch + year + bio via a new extended profile type for the database (frontend-side localStorage is supplemented by backend calls)
+1. Update `index.css`: Replace pink/rose OKLCH color tokens in both light and dark mode with neutral blue-gray/warm-white. Increase neo-shadow intensities.
+2. Update `LoginPage.tsx`: Add tab switcher (Login / Create Account). Login tab keeps existing form, adds Google and mobile sign-in buttons. Create Account tab has name, email, password, confirm password, role, and sign up button. Remove pink inline styles/classes.
+3. Update `Header.tsx`: Remove pink from ROLE_COLOR for student, remove rose from admin ROLE_COLOR. Remove the Profile button from MenuSheet items. Update MenuSheet gradient icon from pink to neutral.
+4. Update `Sidebar.tsx`: Add a Profile nav button between the Home button and the EventCalendarWidget. Style with neo-shadow.
+5. Update `FloatingGitHubButton.tsx`: Increase button size (w-10 h-10), set opacity to 90+, add float-slow/float-medium animation classes.
+6. Sweep remaining files for inline pink/rose Tailwind classes and replace.

@@ -63,11 +63,11 @@ const INITIAL_EVENTS: RegisteredEvent[] = [
     description:
       "National Level Technical Fest - Cosmos of Innovation at D.Y. Patil College of Engineering and Technology.",
     status: "registered",
-    accentClass: "text-rose-600 dark:text-rose-400",
-    bgClass: "bg-rose-50 dark:bg-rose-950/40",
-    borderColor: "border-rose-200 dark:border-rose-800",
+    accentClass: "text-indigo-600 dark:text-indigo-400",
+    bgClass: "bg-indigo-50 dark:bg-indigo-950/40",
+    borderColor: "border-indigo-200 dark:border-indigo-800",
     badgeClass:
-      "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-800",
+      "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-800",
   },
 ];
 
@@ -123,8 +123,8 @@ export function RegisteredEventsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="w-10 h-10 rounded-2xl flex items-center justify-center bg-pink-100 dark:bg-pink-950/50">
-          <CalendarCheck className="h-5 w-5 text-pink-600 dark:text-pink-400" />
+        <div className="w-10 h-10 rounded-2xl flex items-center justify-center bg-blue-100 dark:bg-blue-950/50">
+          <CalendarCheck className="h-5 w-5 text-blue-600 dark:text-blue-400" />
         </div>
         <div>
           <h1 className="font-display font-bold text-xl text-foreground">
@@ -136,7 +136,7 @@ export function RegisteredEventsPage() {
         </div>
         <Badge
           variant="outline"
-          className="ml-auto text-[11px] border-pink-300 text-pink-600 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-400 dark:border-pink-700 font-semibold"
+          className="ml-auto text-[11px] border-blue-300 text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-700 font-semibold"
         >
           {activeEvents.length} active
         </Badge>
@@ -204,7 +204,7 @@ export function RegisteredEventsPage() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="rounded-xl h-8 gap-1.5 text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/30 text-[11px] font-medium shrink-0"
+                      className="rounded-xl h-8 gap-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 text-[11px] font-medium shrink-0"
                       onClick={() => cancelRegistration(event.id)}
                       data-ocid={`registered_events.cancel_button.${i + 1}`}
                     >

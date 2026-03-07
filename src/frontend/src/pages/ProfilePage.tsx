@@ -68,7 +68,7 @@ const INITIAL_PROFILE: ProfileData = {
   year: "sy",
   bio: "Passionate about web development and open source. GDG member and hackathon enthusiast. Always learning something new!",
   githubLink: "https://github.com/ananya-desai",
-  coverColor: "from-pink-300 via-rose-200 to-fuchsia-200",
+  coverColor: "from-blue-300 via-indigo-200 to-slate-200",
   avatarInitials: "AD",
   email: "",
   linkedin: "",
@@ -113,8 +113,8 @@ const EVENTS_PARTICIPATED = [
     date: "20 Mar 2026",
     dateMs: new Date("2026-03-20").getTime(),
     description: "National Level Technical Fest at DYPCET",
-    accentClass: "text-rose-600 dark:text-rose-400",
-    bgClass: "bg-rose-50 dark:bg-rose-950/40",
+    accentClass: "text-indigo-600 dark:text-indigo-400",
+    bgClass: "bg-indigo-50 dark:bg-indigo-950/40",
   },
 ];
 
@@ -424,7 +424,7 @@ export function ProfilePage() {
               {profile.branch && (
                 <Badge
                   variant="outline"
-                  className="text-[11px] rounded-full px-2.5 border-pink-300 text-pink-600 bg-pink-50 dark:bg-pink-950/40 dark:text-pink-400 dark:border-pink-700"
+                  className="text-[11px] rounded-full px-2.5 border-blue-300 text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-700"
                 >
                   {branchLabel[profile.branch] ?? profile.branch}
                 </Badge>
@@ -432,7 +432,7 @@ export function ProfilePage() {
               {profile.year && (
                 <Badge
                   variant="outline"
-                  className="text-[11px] rounded-full px-2.5 border-rose-300 text-rose-600 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-700"
+                  className="text-[11px] rounded-full px-2.5 border-slate-300 text-slate-600 bg-slate-50 dark:bg-slate-800/40 dark:text-slate-400 dark:border-slate-600"
                 >
                   {yearLabel[profile.year] ?? profile.year}
                 </Badge>
@@ -583,7 +583,7 @@ export function ProfilePage() {
             {profile.email && (
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-pink-50 text-pink-700 border border-pink-200 hover:bg-pink-100 transition-colors dark:bg-pink-950/40 dark:text-pink-400 dark:border-pink-700"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-700"
               >
                 <Mail className="h-3 w-3" />
                 {profile.email}
