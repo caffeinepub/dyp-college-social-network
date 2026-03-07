@@ -1,58 +1,45 @@
 # DYP College Social Network
 
 ## Current State
-
-- Main page has 4 tabs: Home, Events, Clubs, Achievements
-- Header has a slide-in sheet (three dashes) with: Login/Logout, Dashboard (collapsed sub-items: Admin, Student, Teacher all say "Coming soon"), Registered Events (coming soon), Profile (coming soon), Settings (coming soon), Campus Map
-- No actual dashboard, profile, settings, or registered events pages exist -- all are toast placeholders
+- Login page with role picker (student/teacher/admin), email/password fields, demo credentials box, and login button
+- Demo email for student is `student@dypcet.ac.in`
+- Color theme is pastel pink with some neomorphism shadows already applied via CSS variables
+- Login page layout: logo, role picker, email, password, login button, demo credentials hint
+- Main app has full-featured pages: HomePage, ClubPage, ProfilePage, DashboardPage, etc.
+- Background colors are pastel pink hues (oklch around 340-350 hue)
+- Fonts: Plus Jakarta Sans (body), Cabinet Grotesk (headings), Sora (fallback)
 
 ## Requested Changes (Diff)
 
 ### Add
-
-1. **Three full dashboard pages** accessible from the menu sheet:
-   - Admin Dashboard: overview stats (total students, events, clubs, posts), recent posts table, event management view, user management section
-   - Student Dashboard: personal stats (events joined, clubs joined, badges earned), upcoming registered events, activity feed, quick actions
-   - Teacher Dashboard: department announcements, student queries from Faculty Ask Doubt form, course/department events, faculty directory
-
-2. **Registered Events page**: list of events the logged-in student has registered for, showing Event Name, Date, Countdown/Status, Add to Calendar button. Mock data for a sample student.
-
-3. **Settings page** with sections:
-   - Password Change (current password, new password, confirm)
-   - Events & Calendar Settings: default event reminder (1 hour before, 1 day before, 1 week before, custom), toggle for "Enable/Disable Add to Calendar automatically"
-   - Privacy & Visibility: "Show my activity on feed" toggle, "Allow comments on my posts" toggle, "Allow tagging in posts" toggle
-
-4. **Profile page** (accessible from menu) -- editable profile:
-   - Cover Photo banner (editable)
-   - Profile Picture (editable)
-   - Full Name, Role (Student/Faculty/Club Member/Admin dropdown), Branch/Department (CSE, Mechanical, etc.), Year (FY/SY/TY/BTech/MTech), Short Bio
-   - Events Participated: list with Event Name, Date, Countdown/Status, Add to Calendar
-   - GitHub Projects: GitHub profile link, list of submitted repos with project description and tech stack
-   - Clubs/Communities Joined: display clubs user follows
-   - Badges/Recognition gamification: Event Enthusiast, Hackathon Participant, Club Leader, Top Contributor
-
-5. **Profile tab on main page** -- add "Profile" as a 5th main tab next to Achievements, with the same profile content as above
+- Google Fonts import: Nunito (elegant, rounded, professional) as an additional font option for the neomorphic theme
+- Database-backed user registration: update backend UserProfile to store richer data (email, role, branch, year, bio) so the site has a persistent user database
+- White/off-white CSS token overrides so the neomorphism shadows render on a white/cream background instead of pink-tinted background
 
 ### Modify
-
-- Header MenuSheet: clicking Admin Dashboard, Student Dashboard, Teacher Dashboard navigates to dedicated pages (sets a route/view) instead of showing a toast
-- Registered Events menu item: navigates to the registered events page
-- Profile menu item: navigates to the profile page
-- Settings menu item: navigates to the settings page
-- App.tsx: add routing for dashboard views, registered events, profile, and settings pages
+- **Login page email format**: Change student demo email from `student@dypcet.ac.in` to `student@gmail.com`. Teacher demo email stays, admin stays. Update placeholder and DEMO credentials accordingly.
+- **Login page layout order**: Move the login button to the BOTTOM of the form -- after the demo credentials hint. So the order becomes: logo, role picker, email, password, demo credentials hint, fill-demo button, login button.
+- **Global color palette (index.css `:root`)**: Shift background, card, sidebar, popover tokens to white and off-white (no pink tint in light mode). Specifically:
+  - `--background`: pure off-white (oklch ~0.985 0.004 90) -- creamy white
+  - `--card`: white (oklch ~0.995 0.002 90)
+  - `--sidebar`: near-white (oklch ~0.982 0.004 90)
+  - `--popover`: white
+  - Neomorphic shadow colors: update to use warm gray/neutral tones for light shadows and white for bright highlights so shadows are visible on the white background
+  - Pastel accent colors (primary, ring) stay softly pink-rose but lighter
+- **Neomorphism**: Ensure `--neo-shadow` and `--neo-shadow-*` use neutral warm tones (#d1cbc8 dark shadow, #ffffff bright highlight) suitable for white surfaces
+- **Typography**: Add Nunito from Google Fonts CDN in `index.html` (or via @import in index.css) as display/heading font alternative for a softer neomorphic feel
 
 ### Remove
-
-- "Coming soon" toasts from Dashboard sub-items, Registered Events, Profile, Settings
+- Nothing removed
 
 ## Implementation Plan
-
-1. Create `src/frontend/src/pages/AdminDashboardPage.tsx` with admin stats, post overview, event list, user management
-2. Create `src/frontend/src/pages/StudentDashboardPage.tsx` with student stats, registered events preview, activity, badges
-3. Create `src/frontend/src/pages/TeacherDashboardPage.tsx` with teacher-focused view
-4. Create `src/frontend/src/pages/RegisteredEventsPage.tsx` with mock registered event list
-5. Create `src/frontend/src/pages/SettingsPage.tsx` with password, calendar, privacy sections
-6. Create `src/frontend/src/pages/ProfilePage.tsx` with editable profile, events participated, GitHub projects, clubs, badges
-7. Modify `HomePage.tsx`: add "profile" to MainTab type and render ProfilePage inside the 5th tab
-8. Modify `Header.tsx`: update MenuSheet navigation to push routes instead of showing toasts
-9. Modify `App.tsx`: add route handling for /dashboard/admin, /dashboard/student, /dashboard/teacher, /registered-events, /profile, /settings
+1. Update `src/frontend/index.html` to add Google Fonts import for Nunito
+2. Update `src/frontend/index.css`:
+   - `:root` background/card/sidebar tokens to white and off-white (OKLCH values)
+   - Neomorphic shadow CSS variables to neutral warm-gray shadows suitable for white background
+   - Add Nunito to font stacks
+3. Update `src/frontend/tailwind.config.js`: add Nunito to fontFamily
+4. Update `src/frontend/src/pages/LoginPage.tsx`:
+   - Change student demo email to `student@gmail.com`
+   - Reorder the JSX: move login button after demo credentials box
+5. Backend `UserProfile` already has basic `name` field; enhance it to store email + role + branch + year + bio via a new extended profile type for the database (frontend-side localStorage is supplemented by backend calls)

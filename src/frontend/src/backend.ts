@@ -122,7 +122,16 @@ export interface Club {
     description: string;
 }
 export interface UserProfile {
+    bio: string;
+    portfolio: string;
+    linkedIn: string;
+    branch: string;
     name: string;
+    role: string;
+    year: string;
+    email: string;
+    contactEmail: string;
+    github: string;
 }
 export interface ActivityEntry {
     id: bigint;
@@ -150,6 +159,7 @@ export interface backendInterface {
     getAllClubPosts(): Promise<Array<Post>>;
     getAllClubs(): Promise<Array<Club>>;
     getAllGitHubProjects(): Promise<Array<GitHubProject>>;
+    getAllUserProfiles(): Promise<Array<UserProfile>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getNotifications(): Promise<Array<Notification>>;
@@ -278,6 +288,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getAllGitHubProjects();
+            return result;
+        }
+    }
+    async getAllUserProfiles(): Promise<Array<UserProfile>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllUserProfiles();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllUserProfiles();
             return result;
         }
     }

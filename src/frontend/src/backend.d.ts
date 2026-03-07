@@ -40,7 +40,16 @@ export interface Club {
     description: string;
 }
 export interface UserProfile {
+    bio: string;
+    portfolio: string;
+    linkedIn: string;
+    branch: string;
     name: string;
+    role: string;
+    year: string;
+    email: string;
+    contactEmail: string;
+    github: string;
 }
 export interface ActivityEntry {
     id: bigint;
@@ -67,6 +76,7 @@ export interface backendInterface {
     getAllClubPosts(): Promise<Array<Post>>;
     getAllClubs(): Promise<Array<Club>>;
     getAllGitHubProjects(): Promise<Array<GitHubProject>>;
+    getAllUserProfiles(): Promise<Array<UserProfile>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getNotifications(): Promise<Array<Notification>>;

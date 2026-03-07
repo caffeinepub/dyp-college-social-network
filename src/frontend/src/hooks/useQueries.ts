@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { PostCategory } from "../backend";
+import type { PostCategory, UserProfile } from "../backend";
 import { useActor } from "./useActor";
 
 export function useAllClubs() {
@@ -187,5 +187,45 @@ export function usePreSeedData() {
     onSuccess: () => {
       qc.invalidateQueries();
     },
+  });
+}
+
+export function useCallerUserProfile() {
+  const { actor, isFetching } = useActor();
+  return useQuery({
+    queryKey: ["profile", "caller"],
+    queryFn: async () => {
+      if (!actor) return null;
+      return actor.getCallerUserProfile();
+    },
+    enabled: !!actor && !isFetching,
+    staleTime: 60_000,
+  });
+}
+
+export function useSaveCallerUserProfile() {
+  const { actor } = useActor();
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (profile: UserProfile) => {
+      if (!actor) throw new Error("No actor");
+      await actor.saveCallerUserProfile(profile);
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["profile"] });
+    },
+  });
+}
+
+export function useAllUserProfiles() {
+  const { actor, isFetching } = useActor();
+  return useQuery({
+    queryKey: ["profiles", "all"],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getAllUserProfiles();
+    },
+    enabled: !!actor && !isFetching,
+    staleTime: 60_000,
   });
 }

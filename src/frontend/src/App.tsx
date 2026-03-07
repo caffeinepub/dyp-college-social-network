@@ -19,11 +19,19 @@ import {
 import { AdminDashboardPage } from "./pages/AdminDashboardPage";
 import { ClubPage } from "./pages/ClubPage";
 import { HomePage } from "./pages/HomePage";
+import { LoginPage } from "./pages/LoginPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { RegisteredEventsPage } from "./pages/RegisteredEventsPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { StudentDashboardPage } from "./pages/StudentDashboardPage";
 import { TeacherDashboardPage } from "./pages/TeacherDashboardPage";
+
+type AuthRole = "student" | "teacher" | "admin" | null;
+
+interface AuthState {
+  role: AuthRole;
+  name: string;
+}
 
 function AppInner() {
   const [currentPath, setCurrentPath] = useState(
@@ -32,6 +40,20 @@ function AppInner() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [sidebarMobileOpen, setSidebarMobileOpen] = useState(false);
+
+  // Auth state - loaded from localStorage
+  const [auth, setAuth] = useState<AuthState>(() => {
+    try {
+      const saved = localStorage.getItem("dyp_auth");
+      if (saved) {
+        const parsed = JSON.parse(saved) as AuthState;
+        return parsed;
+      }
+    } catch {
+      // ignore
+    }
+    return { role: null, name: "" };
+  });
 
   const { isDark } = useTheme();
   const { actor, isFetching } = useActor();
@@ -66,6 +88,34 @@ function AppInner() {
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
+
+  const handleLogin = (role: AuthRole, name: string) => {
+    const newAuth = { role, name };
+    setAuth(newAuth);
+    localStorage.setItem("dyp_auth", JSON.stringify(newAuth));
+    navigate("/");
+  };
+
+  const handleLogout = () => {
+    setAuth({ role: null, name: "" });
+    localStorage.removeItem("dyp_auth");
+    navigate("/login");
+  };
+
+  // If not logged in and not on a public route, show login
+  const publicPaths = ["/login"];
+  if (!auth.role && !publicPaths.includes(currentPath)) {
+    return <LoginPage onLogin={(role, name) => handleLogin(role, name)} />;
+  }
+
+  // Show login page
+  if (currentPath === "/login") {
+    if (auth.role) {
+      navigate("/");
+      return null;
+    }
+    return <LoginPage onLogin={(role, name) => handleLogin(role, name)} />;
+  }
 
   // Parse current route
   const clubSlugMatch = currentPath.match(/^\/club\/([^/]+)(?:\/([^/]+))?/);
@@ -111,6 +161,8 @@ function AppInner() {
           onNotificationClick={() => setNotifOpen(true)}
           onHelpClick={() => setHelpOpen(true)}
           onMenuClick={() => setSidebarMobileOpen(true)}
+          auth={auth}
+          onLogout={handleLogout}
         />
         <main className="flex-1 overflow-y-auto px-4 sm:px-6">
           {renderPage()}

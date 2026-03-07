@@ -1,14 +1,16 @@
-import Map "mo:core/Map";
-import Text "mo:core/Text";
-import Nat "mo:core/Nat";
 import Array "mo:core/Array";
-import Time "mo:core/Time";
+import Map "mo:core/Map";
+import Nat "mo:core/Nat";
 import Order "mo:core/Order";
 import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
-import MixinAuthorization "authorization/MixinAuthorization";
+import Text "mo:core/Text";
+import Time "mo:core/Time";
 import AccessControl "authorization/access-control";
+import MixinAuthorization "authorization/MixinAuthorization";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
   // Types
   public type PostCategory = {
@@ -63,6 +65,15 @@ actor {
 
   public type UserProfile = {
     name : Text;
+    email : Text;
+    role : Text; // student, teacher, admin
+    branch : Text;
+    year : Text;
+    bio : Text;
+    contactEmail : Text;
+    linkedIn : Text;
+    github : Text;
+    portfolio : Text;
   };
 
   // Persistent storage
@@ -119,9 +130,16 @@ actor {
     userProfiles.add(caller, profile);
   };
 
+  public query ({ caller }) func getAllUserProfiles() : async [UserProfile] {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can get all user profiles");
+    };
+    userProfiles.values().toArray();
+  };
+
   // Pre-seeding data function
   public shared ({ caller }) func preSeedData() : async () {
-    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
       Runtime.trap("Unauthorized: Only admins can pre-seed data");
     };
 
@@ -310,7 +328,7 @@ actor {
 
   // Admin-only: Create post
   public shared ({ caller }) func createPost(title : Text, body : Text, categoryText : Text, clubId : ?Nat, authorName : Text, timestamp : Int, eventDate : ?Int, imageUrl : ?Text) : async Nat {
-    if (not AccessControl.isAdmin(accessControlState, caller)) {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
       Runtime.trap("Unauthorized: Only admins can create posts");
     };
 
@@ -476,7 +494,7 @@ actor {
 
   // Admin-only: Clear all data
   public shared ({ caller }) func clearAllData() : async () {
-    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
       Runtime.trap("Unauthorized: Only admins can clear data");
     };
 

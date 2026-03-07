@@ -52,7 +52,18 @@ export interface Post {
 export type PostCategory = { 'Event' : null } |
   { 'Announcement' : null } |
   { 'Update' : null };
-export interface UserProfile { 'name' : string }
+export interface UserProfile {
+  'bio' : string,
+  'portfolio' : string,
+  'linkedIn' : string,
+  'branch' : string,
+  'name' : string,
+  'role' : string,
+  'year' : string,
+  'email' : string,
+  'contactEmail' : string,
+  'github' : string,
+}
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
@@ -80,6 +91,7 @@ export interface _SERVICE {
   'getAllClubPosts' : ActorMethod<[], Array<Post>>,
   'getAllClubs' : ActorMethod<[], Array<Club>>,
   'getAllGitHubProjects' : ActorMethod<[], Array<GitHubProject>>,
+  'getAllUserProfiles' : ActorMethod<[], Array<UserProfile>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getNotifications' : ActorMethod<[], Array<Notification>>,

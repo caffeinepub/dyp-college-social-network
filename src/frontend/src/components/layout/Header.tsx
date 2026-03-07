@@ -41,11 +41,20 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 
+type AuthRole = "student" | "teacher" | "admin" | null;
+
+interface AuthState {
+  role: AuthRole;
+  name: string;
+}
+
 interface Props {
   unreadCount: number;
   onNotificationClick: () => void;
   onHelpClick: () => void;
   onMenuClick: () => void;
+  auth: AuthState;
+  onLogout: () => void;
 }
 
 const languages: { value: Language; label: string; short: string }[] = [
@@ -59,8 +68,38 @@ function navigateTo(path: string) {
   window.dispatchEvent(new PopStateEvent("popstate"));
 }
 
-function MenuSheet() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const ROLE_LABEL: Record<string, string> = {
+  student: "Student",
+  teacher: "Faculty",
+  admin: "Admin",
+};
+
+const ROLE_COLOR: Record<string, { text: string; bg: string; border: string }> =
+  {
+    student: {
+      text: "text-pink-700 dark:text-pink-400",
+      bg: "bg-pink-50 dark:bg-pink-950/40",
+      border: "border-pink-300 dark:border-pink-700",
+    },
+    teacher: {
+      text: "text-amber-700 dark:text-amber-400",
+      bg: "bg-amber-50 dark:bg-amber-950/40",
+      border: "border-amber-300 dark:border-amber-700",
+    },
+    admin: {
+      text: "text-rose-700 dark:text-rose-400",
+      bg: "bg-rose-50 dark:bg-rose-950/40",
+      border: "border-rose-300 dark:border-rose-700",
+    },
+  };
+
+function MenuSheet({
+  auth,
+  onLogout,
+}: {
+  auth: AuthState;
+  onLogout: () => void;
+}) {
   const [dashboardOpen, setDashboardOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -68,6 +107,19 @@ function MenuSheet() {
     setSheetOpen(false);
     navigateTo(path);
   };
+
+  const handleLogout = () => {
+    setSheetOpen(false);
+    onLogout();
+    toast.success("Logged out successfully");
+  };
+
+  const handleLogin = () => {
+    setSheetOpen(false);
+    navigateTo("/login");
+  };
+
+  const roleColors = auth.role ? ROLE_COLOR[auth.role] : null;
 
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
@@ -109,6 +161,34 @@ function MenuSheet() {
               </p>
             </div>
           </div>
+
+          {/* Logged in user pill */}
+          {auth.role && roleColors && (
+            <div
+              className={cn(
+                "mt-3 flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium",
+                roleColors.bg,
+                roleColors.border,
+                roleColors.text,
+              )}
+            >
+              {auth.role === "student" && (
+                <User className="h-3.5 w-3.5 shrink-0" />
+              )}
+              {auth.role === "teacher" && (
+                <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+              )}
+              {auth.role === "admin" && (
+                <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
+              )}
+              <div className="min-w-0">
+                <p className="font-semibold truncate">{auth.name}</p>
+                <p className="text-[10px] opacity-70">
+                  {ROLE_LABEL[auth.role]}
+                </p>
+              </div>
+            </div>
+          )}
         </SheetHeader>
 
         {/* Menu items */}
@@ -119,26 +199,19 @@ function MenuSheet() {
             className={cn(
               "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left",
               "hover:bg-primary/10 hover:text-primary",
-              isLoggedIn
+              auth.role
                 ? "text-rose-600 dark:text-rose-400"
                 : "text-foreground",
             )}
-            onClick={() => {
-              setIsLoggedIn((prev) => !prev);
-              toast.success(
-                isLoggedIn
-                  ? "Logged out successfully"
-                  : "Logged in successfully",
-              );
-            }}
+            onClick={auth.role ? handleLogout : handleLogin}
             data-ocid="header.login.button"
           >
-            {isLoggedIn ? (
+            {auth.role ? (
               <LogOut className="h-4 w-4 shrink-0" />
             ) : (
               <LogIn className="h-4 w-4 shrink-0" />
             )}
-            <span>{isLoggedIn ? "Logout" : "Login"}</span>
+            <span>{auth.role ? "Logout" : "Login"}</span>
           </button>
 
           {/* Separator */}
@@ -254,6 +327,8 @@ export function Header({
   onNotificationClick,
   onHelpClick,
   onMenuClick,
+  auth,
+  onLogout,
 }: Props) {
   const { toggleTheme, isDark } = useTheme();
   const { language, setLanguage, t } = useLanguage();
@@ -276,7 +351,6 @@ export function Header({
           <Menu className="h-5 w-5" />
         </Button>
         <div className="hidden lg:flex items-center gap-2">
-          {/* Desktop college name abbreviation */}
           <span className="font-display font-bold text-sm text-foreground/70 hidden xl:block">
             DYP College Social Network
           </span>
@@ -285,6 +359,23 @@ export function Header({
 
       {/* Right actions */}
       <div className="flex items-center gap-1.5">
+        {/* Logged-in user badge (desktop) */}
+        {auth.role && (
+          <div
+            className={cn(
+              "hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-semibold",
+              ROLE_COLOR[auth.role].bg,
+              ROLE_COLOR[auth.role].border,
+              ROLE_COLOR[auth.role].text,
+            )}
+          >
+            {auth.role === "admin" && <ShieldCheck className="h-3 w-3" />}
+            {auth.role === "teacher" && <GraduationCap className="h-3 w-3" />}
+            {auth.role === "student" && <User className="h-3 w-3" />}
+            <span>{auth.name}</span>
+          </div>
+        )}
+
         {/* Language Switcher */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -371,7 +462,7 @@ export function Header({
         </Button>
 
         {/* Hamburger menu (three dashes) - desktop options sheet */}
-        <MenuSheet />
+        <MenuSheet auth={auth} onLogout={onLogout} />
       </div>
     </header>
   );

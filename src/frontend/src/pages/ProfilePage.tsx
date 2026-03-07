@@ -20,8 +20,12 @@ import {
   ExternalLink,
   Flame,
   Github,
+  Globe,
   ImagePlus,
+  Link2,
+  Linkedin,
   Lock,
+  Mail,
   Plus,
   Save,
   Star,
@@ -52,6 +56,9 @@ interface ProfileData {
   githubLink: string;
   coverColor: string;
   avatarInitials: string;
+  email: string;
+  linkedin: string;
+  portfolio: string;
 }
 
 const INITIAL_PROFILE: ProfileData = {
@@ -63,6 +70,9 @@ const INITIAL_PROFILE: ProfileData = {
   githubLink: "https://github.com/ananya-desai",
   coverColor: "from-pink-300 via-rose-200 to-fuchsia-200",
   avatarInitials: "AD",
+  email: "",
+  linkedin: "",
+  portfolio: "",
 };
 
 const INITIAL_REPOS: Repo[] = [
@@ -250,11 +260,9 @@ export function ProfilePage() {
         <div
           className={`w-full h-full bg-gradient-to-br ${profile.coverColor}`}
         />
-        {/* Decorative circles on cover */}
         <div className="absolute top-4 right-8 w-24 h-24 rounded-full bg-white/10" />
         <div className="absolute bottom-0 left-12 w-40 h-40 rounded-full bg-white/10 -translate-y-1/2" />
 
-        {/* Edit Cover button */}
         <button
           type="button"
           className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm transition-all"
@@ -447,12 +455,195 @@ export function ProfilePage() {
         </div>
       </motion.div>
 
+      {/* Contact Links */}
+      <motion.div
+        className="neo-card p-5 space-y-3"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: 0.13 }}
+      >
+        <div className="flex items-center gap-2">
+          <Link2 className="h-4 w-4 text-primary" />
+          <h2 className="font-display font-bold text-sm text-foreground">
+            Contact Links
+          </h2>
+          <span className="text-[10px] text-muted-foreground ml-1">
+            (Optional)
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {/* Email */}
+          <div className="space-y-1">
+            <Label className="text-xs font-medium flex items-center gap-1.5">
+              <Mail className="h-3 w-3 text-muted-foreground" />
+              Email
+            </Label>
+            <Input
+              value={profile.email}
+              onChange={(e) => updateProfile("email", e.target.value)}
+              placeholder="you@example.com"
+              className="rounded-xl text-sm h-9"
+              data-ocid="profile.email.input"
+              type="email"
+            />
+          </div>
+
+          {/* LinkedIn */}
+          <div className="space-y-1">
+            <Label className="text-xs font-medium flex items-center gap-1.5">
+              <Linkedin className="h-3 w-3 text-muted-foreground" />
+              LinkedIn
+            </Label>
+            <div className="flex gap-2">
+              <Input
+                value={profile.linkedin}
+                onChange={(e) => updateProfile("linkedin", e.target.value)}
+                placeholder="https://linkedin.com/in/username"
+                className="rounded-xl text-sm h-9 flex-1"
+                data-ocid="profile.linkedin.input"
+              />
+              {profile.linkedin && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-xl h-9 w-9 shrink-0"
+                  onClick={() => window.open(profile.linkedin, "_blank")}
+                  data-ocid="profile.linkedin_visit.button"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* GitHub */}
+          <div className="space-y-1">
+            <Label className="text-xs font-medium flex items-center gap-1.5">
+              <Github className="h-3 w-3 text-muted-foreground" />
+              GitHub
+            </Label>
+            <div className="flex gap-2">
+              <Input
+                value={profile.githubLink}
+                onChange={(e) => updateProfile("githubLink", e.target.value)}
+                placeholder="https://github.com/username"
+                className="rounded-xl text-sm h-9 flex-1"
+                data-ocid="profile.github_link.input"
+              />
+              {profile.githubLink && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-xl h-9 w-9 shrink-0"
+                  onClick={() => window.open(profile.githubLink, "_blank")}
+                  data-ocid="profile.github_visit.button"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* Portfolio Website */}
+          <div className="space-y-1">
+            <Label className="text-xs font-medium flex items-center gap-1.5">
+              <Globe className="h-3 w-3 text-muted-foreground" />
+              Portfolio Website
+            </Label>
+            <div className="flex gap-2">
+              <Input
+                value={profile.portfolio}
+                onChange={(e) => updateProfile("portfolio", e.target.value)}
+                placeholder="https://yourportfolio.dev"
+                className="rounded-xl text-sm h-9 flex-1"
+                data-ocid="profile.portfolio.input"
+              />
+              {profile.portfolio && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-xl h-9 w-9 shrink-0"
+                  onClick={() => window.open(profile.portfolio, "_blank")}
+                  data-ocid="profile.portfolio_visit.button"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Live contact link chips (shown when filled) */}
+        {(profile.email ||
+          profile.linkedin ||
+          profile.githubLink ||
+          profile.portfolio) && (
+          <div className="pt-2 flex flex-wrap gap-2">
+            {profile.email && (
+              <a
+                href={`mailto:${profile.email}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-pink-50 text-pink-700 border border-pink-200 hover:bg-pink-100 transition-colors dark:bg-pink-950/40 dark:text-pink-400 dark:border-pink-700"
+              >
+                <Mail className="h-3 w-3" />
+                {profile.email}
+              </a>
+            )}
+            {profile.linkedin && (
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-700"
+              >
+                <Linkedin className="h-3 w-3" />
+                LinkedIn
+              </a>
+            )}
+            {profile.githubLink && (
+              <a
+                href={profile.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100 transition-colors dark:bg-gray-950/40 dark:text-gray-400 dark:border-gray-700"
+              >
+                <Github className="h-3 w-3" />
+                GitHub
+              </a>
+            )}
+            {profile.portfolio && (
+              <a
+                href={profile.portfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-700"
+              >
+                <Globe className="h-3 w-3" />
+                Portfolio
+              </a>
+            )}
+          </div>
+        )}
+
+        <div className="pt-1">
+          <Button
+            size="sm"
+            className="rounded-xl gap-1.5 text-xs"
+            onClick={saveProfile}
+            data-ocid="profile.contact_save.button"
+          >
+            <Save className="h-3.5 w-3.5" />
+            Save Links
+          </Button>
+        </div>
+      </motion.div>
+
       {/* Events Participated */}
       <motion.div
         className="neo-card p-5 space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.14 }}
+        transition={{ duration: 0.35, delay: 0.18 }}
       >
         <h2 className="font-display font-bold text-sm text-foreground">
           Events Participated
@@ -492,38 +683,13 @@ export function ProfilePage() {
         className="neo-card p-5 space-y-4"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.2 }}
+        transition={{ duration: 0.35, delay: 0.22 }}
       >
         <div className="flex items-center gap-2">
           <Github className="h-4 w-4 text-foreground" />
           <h2 className="font-display font-bold text-sm text-foreground">
             GitHub Projects
           </h2>
-        </div>
-
-        {/* GitHub link */}
-        <div className="space-y-1">
-          <Label className="text-xs font-medium">GitHub Profile Link</Label>
-          <div className="flex gap-2">
-            <Input
-              value={profile.githubLink}
-              onChange={(e) => updateProfile("githubLink", e.target.value)}
-              placeholder="https://github.com/username"
-              className="rounded-xl text-sm h-9 flex-1"
-              data-ocid="profile.github_link.input"
-            />
-            {profile.githubLink && (
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-xl h-9 w-9 shrink-0"
-                onClick={() => window.open(profile.githubLink, "_blank")}
-                data-ocid="profile.github_visit.button"
-              >
-                <ExternalLink className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
         </div>
 
         {/* Repo List */}
@@ -639,7 +805,7 @@ export function ProfilePage() {
         className="neo-card p-5 space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.26 }}
+        transition={{ duration: 0.35, delay: 0.28 }}
       >
         <div className="flex items-center justify-between gap-2">
           <h2 className="font-display font-bold text-sm text-foreground">
@@ -671,7 +837,7 @@ export function ProfilePage() {
         className="neo-card p-5 space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.32 }}
+        transition={{ duration: 0.35, delay: 0.34 }}
       >
         <div className="flex items-center gap-2">
           <Award className="h-4 w-4 text-primary" />

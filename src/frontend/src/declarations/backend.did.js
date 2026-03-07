@@ -43,7 +43,18 @@ export const GitHubProject = IDL.Record({
   'timestamp' : IDL.Int,
   'repoUrl' : IDL.Text,
 });
-export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const UserProfile = IDL.Record({
+  'bio' : IDL.Text,
+  'portfolio' : IDL.Text,
+  'linkedIn' : IDL.Text,
+  'branch' : IDL.Text,
+  'name' : IDL.Text,
+  'role' : IDL.Text,
+  'year' : IDL.Text,
+  'email' : IDL.Text,
+  'contactEmail' : IDL.Text,
+  'github' : IDL.Text,
+});
 export const Notification = IDL.Record({
   'id' : IDL.Nat,
   'isRead' : IDL.Bool,
@@ -85,6 +96,7 @@ export const idlService = IDL.Service({
   'getAllClubPosts' : IDL.Func([], [IDL.Vec(Post)], ['query']),
   'getAllClubs' : IDL.Func([], [IDL.Vec(Club)], ['query']),
   'getAllGitHubProjects' : IDL.Func([], [IDL.Vec(GitHubProject)], ['query']),
+  'getAllUserProfiles' : IDL.Func([], [IDL.Vec(UserProfile)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getNotifications' : IDL.Func([], [IDL.Vec(Notification)], ['query']),
@@ -144,7 +156,18 @@ export const idlFactory = ({ IDL }) => {
     'timestamp' : IDL.Int,
     'repoUrl' : IDL.Text,
   });
-  const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const UserProfile = IDL.Record({
+    'bio' : IDL.Text,
+    'portfolio' : IDL.Text,
+    'linkedIn' : IDL.Text,
+    'branch' : IDL.Text,
+    'name' : IDL.Text,
+    'role' : IDL.Text,
+    'year' : IDL.Text,
+    'email' : IDL.Text,
+    'contactEmail' : IDL.Text,
+    'github' : IDL.Text,
+  });
   const Notification = IDL.Record({
     'id' : IDL.Nat,
     'isRead' : IDL.Bool,
@@ -186,6 +209,7 @@ export const idlFactory = ({ IDL }) => {
     'getAllClubPosts' : IDL.Func([], [IDL.Vec(Post)], ['query']),
     'getAllClubs' : IDL.Func([], [IDL.Vec(Club)], ['query']),
     'getAllGitHubProjects' : IDL.Func([], [IDL.Vec(GitHubProject)], ['query']),
+    'getAllUserProfiles' : IDL.Func([], [IDL.Vec(UserProfile)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getNotifications' : IDL.Func([], [IDL.Vec(Notification)], ['query']),

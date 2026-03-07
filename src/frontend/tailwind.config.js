@@ -16,8 +16,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', '"Sora"', "system-ui", "sans-serif"],
-        display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+        sans: ['"Nunito"', '"Plus Jakarta Sans"', '"Sora"', "system-ui", "sans-serif"],
+        display: ['"Nunito"', '"Cabinet Grotesk"', '"Plus Jakarta Sans"', "system-ui", "sans-serif"],
         mono: ['"Geist Mono"', "monospace"],
       },
       colors: {
@@ -84,6 +84,9 @@ export default {
         xs: "0 1px 2px 0 rgba(0,0,0,0.05)",
         bubble: "var(--bubble-shadow)",
         "bubble-lg": "var(--bubble-shadow-lg)",
+        neo: "var(--neo-shadow)",
+        "neo-sm": "var(--neo-shadow-sm)",
+        "neo-lg": "var(--neo-shadow-lg)",
       },
       keyframes: {
         "accordion-down": {
