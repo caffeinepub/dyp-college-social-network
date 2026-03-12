@@ -45,9 +45,9 @@ export function Sidebar({
         <div className="flex items-center gap-3">
           <div className="w-14 h-14 rounded-2xl overflow-hidden bg-white/20 shrink-0 shadow-lg">
             <img
-              src="/assets/generated/dyp-college-logo-transparent.dim_120x120.png"
+              src="/assets/uploads/Gemini_Generated_Image_w4w3ynw4w3ynw4w3-1.png"
               alt="DYP Logo"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
           <div className="min-w-0">

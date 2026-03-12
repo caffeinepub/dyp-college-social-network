@@ -143,15 +143,11 @@ function MenuSheet({
         {/* Header branding */}
         <SheetHeader className="px-5 pt-6 pb-4 border-b border-border/60">
           <div className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 rounded-2xl flex items-center justify-center shadow-md"
-              style={{
-                background:
-                  "linear-gradient(135deg, #3b82f6, #2563eb, #1d4ed8)",
-              }}
-            >
-              <GraduationCap className="h-5 w-5 text-white" />
-            </div>
+            <img
+              src="/assets/uploads/Gemini_Generated_Image_w4w3ynw4w3ynw4w3-1.png"
+              alt="DYP Logo"
+              className="w-10 h-10 rounded-xl object-contain bg-white shadow-md shrink-0"
+            />
             <div>
               <SheetTitle className="font-display font-bold text-sm text-foreground leading-tight">
                 DYP COET
